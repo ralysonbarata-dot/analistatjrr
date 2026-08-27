@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ordem de Nomeação — TJRR — Analista Judiciário</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#12233F; --navy-2:#1B3358; --paper:#F5F4F0; --paper-2:#FFFFFF;
+  --ink:#1C2530; --ink-soft:#5B6472; --line:#DEDAD1;
+  --negro:#B9762F; --negro-bg:#FBEEE0;
+  --pcd:#2E5C8A; --pcd-bg:#E7EEF6;
+  --indig:#3F7A52; --indig-bg:#E8F1EA;
+  --sj:#8A6D00; --sj-bg:#FFF6D8;
+  --rev:#9C2B2B; --rev-bg:#FBE9E7;
+  --convocado:#2E5C8A; --nomeado:#2F6F5E; --desistente:#9C2B2B; --finalfila:#8A5A00;
+  --ok:#2F6F5E; --cr:#8B8478;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,sans-serif;font-size:14px;line-height:1.5;}
+.wrap{max-width:1360px;margin:0 auto;padding:26px 20px 70px;}
+header.top{border-bottom:3px solid var(--navy);padding-bottom:16px;margin-bottom:20px;}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px;}
+h1{font-family:'Source Serif 4',serif;font-weight:700;font-size:28px;margin:0 0 6px;color:var(--navy);letter-spacing:-0.01em;}
+.sub{color:var(--ink-soft);font-size:13.5px;max-width:860px;}
+
+.auth-box{display:flex;align-items:center;gap:8px;justify-content:flex-end;margin-bottom:10px;font-size:12.5px;flex-wrap:wrap;}
+.auth-box input{padding:6px 8px;border:1px solid var(--line);border-radius:5px;font-size:12.5px;width:150px;}
+.auth-box button{padding:6px 10px;font-size:12px;}
+#authMsg{font-size:11.5px;color:var(--ink-soft);}
+.locked-note{font-size:11.5px;color:#8A5A00;background:#FFF6D8;border:1px solid #EBD48A;padding:8px 10px;border-radius:6px;margin-top:8px;}
+fieldset.edit-fields{border:none;padding:0;margin:0;}
+fieldset.edit-fields:disabled{opacity:.5;}
+
+.spec-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:20px 0 16px;}
+.spec-tab{padding:8px 13px;border-radius:20px;border:1px solid var(--line);background:var(--paper-2);cursor:pointer;font-size:12.5px;font-weight:600;color:var(--ink-soft);display:flex;align-items:center;gap:6px;}
+.spec-tab .cnt{font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:10.5px;opacity:.7;}
+.spec-tab.active{border-color:var(--navy);background:var(--navy);color:#fff;}
+.spec-tab.active .cnt{opacity:.85;}
+
+.controls{display:grid;grid-template-columns:290px 1fr;gap:16px;margin:0 0 16px;}
+@media (max-width:840px){ .controls{grid-template-columns:1fr;} }
+.panel{background:var(--paper-2);border:1px solid var(--line);border-radius:8px;padding:14px 16px;}
+.panel h3{margin:0 0 10px;font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--navy-2);font-family:'IBM Plex Mono',monospace;font-weight:500;}
+.quota-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;margin-top:6px;font-size:12px;}
+.quota-grid div{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px dashed var(--line);}
+.quota-grid b{color:var(--navy);}
+.legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;font-size:11px;color:var(--ink-soft);}
+.legend span{display:inline-flex;align-items:center;gap:5px;}
+.dot{width:9px;height:9px;border-radius:2px;display:inline-block;}
+.hint{font-size:11px;color:var(--ink-soft);margin-top:10px;line-height:1.5;}
+
+input[type=text]{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:6px;font-size:13.5px;font-family:'Inter';background:var(--paper-2);color:var(--ink);}
+
+.next-up-wrap{margin-bottom:16px;}
+.next-up-title{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--navy-2);margin-bottom:10px;font-weight:600;}
+.next-up-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+@media (max-width:900px){ .next-up-grid{grid-template-columns:1fr 1fr;} }
+.next-up-card{border-radius:8px;padding:12px 14px;border:1px solid transparent;position:relative;}
+.next-up-card .catlabel{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.08em;opacity:.75;margin-bottom:4px;}
+.next-up-card .candname{font-family:'Source Serif 4',serif;font-size:15px;font-weight:600;line-height:1.3;}
+.next-up-card .posinfo{font-size:11.5px;margin-top:4px;opacity:.85;}
+.next-up-card.empty{color:var(--ink-soft);font-style:italic;font-size:12.5px;display:flex;align-items:center;justify-content:center;}
+.next-up-card.AC{background:var(--paper-2);border-color:var(--line);color:var(--ink);}
+.next-up-card.Negro{background:var(--negro-bg);border-color:#EAC191;color:#6B441B;}
+.next-up-card.PcD{background:var(--pcd-bg);border-color:#B9CEE3;color:#1F3E5C;}
+.next-up-card.Indigena{background:var(--indig-bg);border-color:#BEDBC5;color:#2A4E35;}
+
+.cat-tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;align-items:center;}
+.cat-tab{padding:8px 15px;border-radius:20px;border:1px solid var(--line);background:var(--paper-2);cursor:pointer;font-size:12.5px;font-weight:600;color:var(--ink-soft);display:flex;align-items:center;gap:6px;}
+.cat-tab .cnt{font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:11px;opacity:.75;}
+.cat-tab.active{border-color:transparent;color:#fff;}
+.cat-tab.active.ac{background:var(--navy);}
+.cat-tab.active.negro{background:var(--negro);}
+.cat-tab.active.pcd{background:var(--pcd);}
+.cat-tab.active.indigena{background:var(--indig);}
+.checkbox-inline{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-soft);margin-left:auto;}
+
+table{width:100%;border-collapse:collapse;background:var(--paper-2);}
+thead th{position:sticky;top:0;background:var(--navy);color:#fff;font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;padding:8px 9px;text-align:left;}
+tbody td{padding:6px 9px;border-bottom:1px solid var(--line);font-size:12.5px;vertical-align:top;}
+tbody tr.negro{background:var(--negro-bg);}
+tbody tr.pcd{background:var(--pcd-bg);}
+tbody tr.indigena{background:var(--indig-bg);}
+tbody tr.ac{background:var(--paper-2);}
+tbody tr.cr{background:#F1F0EC;color:var(--cr);}
+tbody tr.hidden{display:none;}
+tbody tr.subjudice td.namecell{font-style:italic;}
+tbody tr.reverted{outline:1px dashed var(--rev);outline-offset:-1px;}
+.sjtag{display:inline-block;margin-left:6px;font-size:9px;font-family:'IBM Plex Mono',monospace;background:var(--sj-bg);color:var(--sj);padding:1px 5px;border-radius:3px;}
+.jurtag{display:inline-block;margin-left:6px;font-size:9px;font-family:'IBM Plex Mono',monospace;background:#EDEDE8;color:var(--ink-soft);padding:1px 5px;border-radius:3px;}
+.ordernum{font-family:'IBM Plex Mono',monospace;color:var(--navy);font-weight:700;}
+.catpill{display:inline-block;padding:1px 7px;border-radius:10px;font-size:10.5px;font-family:'IBM Plex Mono',monospace;font-weight:600;}
+.catpill.AC{background:#EDEDE8;color:var(--ink-soft);}
+.catpill.Negro{background:var(--negro-bg);color:var(--negro);}
+.catpill.PcD{background:var(--pcd-bg);color:var(--pcd);}
+.catpill.Indigena{background:var(--indig-bg);color:var(--indig);}
+.catpill.CR{background:#EAE8E2;color:var(--cr);}
+select.statusSelect{width:100%;padding:4px 6px;border:1px solid var(--line);border-radius:5px;font-size:11.5px;font-family:'Inter';background:#fff;}
+select.statusSelect:disabled{opacity:.6;cursor:not-allowed;}
+select.statusSelect.st-desistente{border-color:var(--desistente);color:var(--desistente);}
+select.statusSelect.st-final_fila{border-color:var(--finalfila);color:var(--finalfila);}
+select.statusSelect.st-convocado{border-color:var(--convocado);color:var(--convocado);}
+select.statusSelect.st-nomeado{border-color:var(--nomeado);color:var(--nomeado);font-weight:600;}
+.reassign-note{font-size:10.5px;margin-top:3px;padding:3px 6px;border-radius:4px;line-height:1.4;}
+.reassign-note.from{background:#FBE9E7;color:var(--desistente);}
+.reassign-note.to{background:#E7EEF6;color:var(--convocado);}
+.reassign-note.warn{background:#EAE8E2;color:var(--cr);}
+.table-scroll{max-height:640px;overflow:auto;border:1px solid var(--line);border-radius:8px;}
+.empty-state{padding:40px 20px;text-align:center;color:var(--ink-soft);font-size:13.5px;}
+.summary-line{font-size:12.5px;color:var(--ink);margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);line-height:1.8;}
+.status-pill{display:inline-block;padding:1px 7px;border-radius:10px;font-size:11px;font-family:'IBM Plex Mono',monospace;font-weight:500;margin-right:4px;}
+footer{margin-top:22px;font-size:11px;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:12px;line-height:1.8;}
+footer .rights{font-weight:600;color:var(--navy);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="auth-box" id="authLoggedOut">
+    <input type="email" id="loginEmail" placeholder="e-mail" autocomplete="username">
+    <input type="password" id="loginPass" placeholder="senha" autocomplete="current-password">
+    <button class="btn-primary" id="btnLogin">Entrar</button>
+    <span id="authMsg"></span>
+  </div>
+  <div class="auth-box" id="authLoggedIn" style="display:none;">
+    <span id="authUserLabel" style="color:var(--ink-soft);"></span>
+    <button id="btnLogout">Sair</button>
+  </div>
+
+<header class="top">
+  <div class="eyebrow">Poder Judiciário do Estado de Roraima · Edital nº 01/2024 · Simulação não oficial</div>
+  <h1>Ordem de Nomeação — Analista Judiciário</h1>
+  <div class="sub">Simulação da convocação por especialidade usando as vagas oficiais do item 3.1 do Edital (ampla concorrência, negros, indígenas e PcD). A ampla concorrência é preenchida pelos melhores colocados na classificação geral — quem já entra por mérito na ampla não consome vaga de cota (item 8.14). Cota sem candidato suficiente reverte conforme itens 6.12, 8.11 e 9.10.</div>
+</header>
+
+<div class="spec-tabs" id="specTabs"></div>
+
+<div class="controls">
+  <div class="panel">
+    <h3 id="specTitle">Especialidade</h3>
+    <div class="quota-grid" id="quotaGrid"></div>
+    <div class="legend">
+      <span><i class="dot" style="background:var(--negro)"></i>Negro</span>
+      <span><i class="dot" style="background:var(--pcd)"></i>PcD</span>
+      <span><i class="dot" style="background:var(--indig)"></i>Indígena</span>
+      <span><i class="dot" style="background:var(--sj)"></i>Sub judice</span>
+    </div>
+    <div class="hint">O número na coluna "Vaga" é a posição de chamamento dentro desta especialidade (1ª, 2ª...), já com a cota aplicada. Candidatos além do total de vagas ficam em CR (cadastro de reserva).</div>
+  </div>
+  <div class="panel">
+    <h3>Marcar status <span id="syncStatus" style="float:right;font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-transform:none;letter-spacing:0;font-weight:400;">—</span></h3>
+    <fieldset class="edit-fields" id="editFields" disabled>
+      <input type="text" id="searchBox" placeholder="Buscar por nome ou inscrição nesta especialidade...">
+    </fieldset>
+    <div class="locked-note" id="lockedNote">🔒 Faça login acima para alterar status. Qualquer pessoa pode visualizar a lista normalmente.</div>
+    <div class="summary-line" id="summaryBox"></div>
+  </div>
+</div>
+
+<div class="next-up-wrap">
+  <div class="next-up-title">📣 Próximo da fila, por cota</div>
+  <div class="next-up-grid" id="nextUpGrid"></div>
+</div>
+
+<div class="cat-tabs" id="catTabs">
+  <label class="checkbox-inline"><input type="checkbox" id="onlyProvidas"> Só mostrar quem tem vaga na simulação</label>
+</div>
+
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+  <th style="width:55px;">Nota</th>
+  <th style="width:70px;">Vaga</th>
+  <th>Candidato</th>
+  <th style="width:80px;">Nasc.</th>
+  <th style="width:130px;">Cota (autodeclarada)</th>
+  <th style="width:170px;">Cota / vaga na simulação</th>
+  <th style="width:160px;">Status</th>
+</tr>
+</thead>
+<tbody id="tbody"></tbody>
+</table>
+<div class="empty-state" id="emptyState" style="display:none;">Nenhum candidato nesta categoria.</div>
+</div>
+
+<footer>
+  Simulação educativa e não oficial, elaborada a partir de dados públicos do Edital nº 01/2024 (quadro de vagas do item 3.1) e do Resultado Final de Aprovados do TJRR (Analista Judiciário). Não substitui os atos convocatórios oficiais publicados no Diário da Justiça Eletrônico (DJe).<br>
+  <span class="rights">Todos os direitos reservados a Ralyson Barata.</span>
+</footer>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script>
+const DATA_ALL = {"APOIO À GESTÃO": [{"p": 1, "i": "728012575", "n": "Geraldo Almeida Rocha", "nasc": "04/05/1993", "jur": false, "obj": 58, "diss": 20, "nota": 78, "cats": [], "sj": false}, {"p": 2, "i": "728017393", "n": "Maiara De Miranda Silva", "nasc": "09/03/1995", "jur": false, "obj": 56, "diss": 20, "nota": 76, "cats": ["Negro"], "sj": false}, {"p": 3, "i": "728008621", "n": "Mayara Sampaio Miki", "nasc": "21/03/1996", "jur": false, "obj": 55, "diss": 20, "nota": 75, "cats": [], "sj": false}, {"p": 4, "i": "728011899", "n": "Vinicius Nascimento Oliveira", "nasc": "27/07/2001", "jur": false, "obj": 55, "diss": 20, "nota": 75, "cats": [], "sj": false}, {"p": 5, "i": "728002015", "n": "Juliana Karoline Dantas Santos", "nasc": "28/11/1991", "jur": false, "obj": 55, "diss": 20, "nota": 75, "cats": [], "sj": false}, {"p": 6, "i": "728019925", "n": "Ricardo José Da Mota Moreira Filho", "nasc": "09/09/1999", "jur": false, "obj": 55, "diss": 20, "nota": 75, "cats": [], "sj": false}, {"p": 7, "i": "728002003", "n": "July Santos Da Silva", "nasc": "29/04/1995", "jur": false, "obj": 55, "diss": 20, "nota": 75, "cats": [], "sj": false}, {"p": 8, "i": "728001074", "n": "Danilo Fernando Leite", "nasc": "22/07/1994", "jur": false, "obj": 55, "diss": 20, "nota": 75, "cats": ["Negro"], "sj": false}, {"p": 9, "i": "728024221", "n": "Juliana Silva Pinto", "nasc": "14/01/1996", "jur": false, "obj": 54, "diss": 20, "nota": 74, "cats": ["Negro"], "sj": false}, {"p": 10, "i": "728006144", "n": "Felipe Ferreira Pantoja", "nasc": "07/08/1994", "jur": false, "obj": 54, "diss": 20, "nota": 74, "cats": [], "sj": false}, {"p": 11, "i": "728000856", "n": "Felipe Alves Amancio", "nasc": "18/09/1992", "jur": true, "obj": 53, "diss": 20, "nota": 73, "cats": ["PcD"], "sj": false}, {"p": 12, "i": "728010156", "n": "Jean Carlos Vasconcelos Costa", "nasc": "13/03/1982", "jur": false, "obj": 53, "diss": 20, "nota": 73, "cats": [], "sj": false}, {"p": 13, "i": "728013645", "n": "Karen Magalhães Moreno", "nasc": "29/06/1980", "jur": false, "obj": 53, "diss": 20, "nota": 73, "cats": [], "sj": true}, {"p": 14, "i": "728024633", "n": "Brehmer Da Rocha Dutra", "nasc": "05/11/1993", "jur": false, "obj": 53, "diss": 20, "nota": 73, "cats": [], "sj": false}, {"p": 15, "i": "728020988", "n": "Alessandra Moura Pedrosa Santos", "nasc": "25/09/1997", "jur": true, "obj": 53, "diss": 20, "nota": 73, "cats": [], "sj": false}, {"p": 16, "i": "728008602", "n": "Julianna Virginia Mendes Xavier De Melo", "nasc": "18/12/1983", "jur": false, "obj": 53, "diss": 20, "nota": 73, "cats": [], "sj": false}, {"p": 17, "i": "728017813", "n": "André Da Silva Ribeiro", "nasc": "06/05/1998", "jur": false, "obj": 53, "diss": 20, "nota": 73, "cats": [], "sj": false}, {"p": 18, "i": "728023234", "n": "Tamara Moura Chaveco", "nasc": "29/01/1999", "jur": false, "obj": 53, "diss": 20, "nota": 73, "cats": [], "sj": false}, {"p": 19, "i": "728007413", "n": "Nelson Benjamin Da Silva", "nasc": "18/10/1993", "jur": false, "obj": 57, "diss": 15, "nota": 72, "cats": [], "sj": false}, {"p": 20, "i": "728011398", "n": "Rebeca Ramalho Do Rêgo", "nasc": "30/08/1990", "jur": false, "obj": 52, "diss": 20, "nota": 72, "cats": [], "sj": false}, {"p": 21, "i": "728007301", "n": "Joao Pedro Da Silva Rosa", "nasc": "20/09/1997", "jur": false, "obj": 52, "diss": 20, "nota": 72, "cats": ["Negro"], "sj": false}, {"p": 22, "i": "728017418", "n": "Mélane Hadassa Morais Dos Santos", "nasc": "24/06/1991", "jur": false, "obj": 52, "diss": 20, "nota": 72, "cats": ["Negro"], "sj": true}, {"p": 23, "i": "728019429", "n": "Ana Carina Filgueira Coutinho", "nasc": "07/01/1993", "jur": false, "obj": 52, "diss": 20, "nota": 72, "cats": [], "sj": false}, {"p": 24, "i": "728009259", "n": "Luan Monteiro Pereira", "nasc": "24/11/1997", "jur": false, "obj": 51, "diss": 20, "nota": 71, "cats": ["Negro"], "sj": false}, {"p": 25, "i": "728009672", "n": "Lucas De Souza Colaço", "nasc": "06/11/1999", "jur": false, "obj": 53, "diss": 18, "nota": 71, "cats": [], "sj": true}, {"p": 26, "i": "728026474", "n": "Wellington Costa Da Silva", "nasc": "09/02/1989", "jur": false, "obj": 56, "diss": 15, "nota": 71, "cats": ["Negro"], "sj": false}, {"p": 27, "i": "728028494", "n": "Carolina Frota Albuquerque Leal", "nasc": "05/12/1990", "jur": false, "obj": 51, "diss": 20, "nota": 71, "cats": [], "sj": true}, {"p": 28, "i": "728002775", "n": "Marcela Marques Alencar", "nasc": "06/03/1994", "jur": false, "obj": 51, "diss": 20, "nota": 71, "cats": [], "sj": false}, {"p": 29, "i": "728018511", "n": "Marciel Moraes Dos Santos", "nasc": "02/09/1997", "jur": false, "obj": 51, "diss": 20, "nota": 71, "cats": [], "sj": false}, {"p": 30, "i": "728029489", "n": "Elizangela Da Costa Lima", "nasc": "25/09/1981", "jur": false, "obj": 51, "diss": 20, "nota": 71, "cats": ["Negro"], "sj": false}, {"p": 31, "i": "728000910", "n": "José Carlos Mendes Sampaio Pereira", "nasc": "30/09/1987", "jur": false, "obj": 51, "diss": 20, "nota": 71, "cats": [], "sj": false}, {"p": 32, "i": "728007699", "n": "Bianca Bezerra Do Real", "nasc": "03/07/1992", "jur": false, "obj": 51, "diss": 20, "nota": 71, "cats": [], "sj": false}, {"p": 33, "i": "728010093", "n": "Isabelle Cristini Luniere Dias", "nasc": "28/03/1998", "jur": false, "obj": 51, "diss": 20, "nota": 71, "cats": [], "sj": false}, {"p": 34, "i": "728014170", "n": "Denis Apolinário Da Silva", "nasc": "15/08/1981", "jur": false, "obj": 51, "diss": 20, "nota": 71, "cats": ["Negro"], "sj": false}, {"p": 35, "i": "728023244", "n": "Alberto Araújo De Souza Cruz", "nasc": "06/07/1985", "jur": false, "obj": 50, "diss": 20, "nota": 70, "cats": [], "sj": false}, {"p": 36, "i": "728015301", "n": "Suzy Dhayanne Pinto Carvalho", "nasc": "10/11/1986", "jur": false, "obj": 52, "diss": 18, "nota": 70, "cats": [], "sj": false}, {"p": 37, "i": "728005381", "n": "Líbia Renata Oliveira De Souza", "nasc": "21/11/1995", "jur": false, "obj": 52, "diss": 18, "nota": 70, "cats": [], "sj": false}, {"p": 38, "i": "728019348", "n": "João Vitor Silva De Oliveira", "nasc": "27/11/1997", "jur": false, "obj": 50, "diss": 20, "nota": 70, "cats": [], "sj": false}, {"p": 39, "i": "728007687", "n": "Rebeca Souza Da Silva", "nasc": "04/02/1991", "jur": false, "obj": 50, "diss": 20, "nota": 70, "cats": [], "sj": false}, {"p": 40, "i": "728018690", "n": "Raphael Augusto Barbosa Pimentel", "nasc": "17/08/1992", "jur": false, "obj": 50, "diss": 20, "nota": 70, "cats": [], "sj": false}, {"p": 41, "i": "728021185", "n": "Francisco Leonardo Lima Aguiar", "nasc": "19/05/1996", "jur": false, "obj": 50, "diss": 20, "nota": 70, "cats": [], "sj": false}, {"p": 42, "i": "728011914", "n": "Guilherme Carvalho Dos Santos De Araujo", "nasc": "05/06/2001", "jur": false, "obj": 50, "diss": 20, "nota": 70, "cats": [], "sj": false}, {"p": 43, "i": "728029307", "n": "Rafael Garcia Batista Raposo", "nasc": "27/03/1992", "jur": false, "obj": 50, "diss": 20, "nota": 70, "cats": ["PcD"], "sj": false}, {"p": 44, "i": "728015738", "n": "Leandro Júnior Oliveria Gonçalves", "nasc": "28/10/1983", "jur": false, "obj": 53, "diss": 16, "nota": 69, "cats": [], "sj": false}, {"p": 45, "i": "728014948", "n": "Aldejan Pereira Da Silva", "nasc": "01/09/1994", "jur": false, "obj": 49, "diss": 20, "nota": 69, "cats": ["Negro"], "sj": false}, {"p": 46, "i": "728022855", "n": "Moisés Lima Vilpert", "nasc": "04/10/1998", "jur": false, "obj": 51, "diss": 18, "nota": 69, "cats": [], "sj": false}, {"p": 47, "i": "728005028", "n": "Jucilene Lima Peixoto", "nasc": "27/12/1986", "jur": false, "obj": 50, "diss": 18, "nota": 68, "cats": ["Indigena"], "sj": false}, {"p": 48, "i": "728000930", "n": "Pedro Fernando Moraes Sanches", "nasc": "07/09/1984", "jur": false, "obj": 48, "diss": 20, "nota": 68, "cats": ["PcD"], "sj": false}, {"p": 49, "i": "728031422", "n": "Daniel Marinho De Oliveira", "nasc": "02/01/1993", "jur": false, "obj": 48, "diss": 20, "nota": 68, "cats": ["Negro"], "sj": false}, {"p": 50, "i": "728004666", "n": "Milena Oliveira Alves De Souza", "nasc": "24/10/1982", "jur": false, "obj": 52, "diss": 16, "nota": 68, "cats": [], "sj": false}, {"p": 51, "i": "728008490", "n": "Gisele Salazar da Silva Luz", "nasc": "20/09/1997", "jur": false, "obj": 53, "diss": 15, "nota": 68, "cats": [], "sj": false}, {"p": 52, "i": "728000542", "n": "Annaterra Ribeiro Dos Santos", "nasc": "25/08/1983", "jur": false, "obj": 50, "diss": 18, "nota": 68, "cats": [], "sj": false}, {"p": 53, "i": "728014694", "n": "Lais Damacena De Souza", "nasc": "28/07/1994", "jur": false, "obj": 52, "diss": 15, "nota": 67, "cats": ["Negro"], "sj": false}, {"p": 54, "i": "728009957", "n": "Gleidson Alexandre De Oliveira", "nasc": "22/01/1986", "jur": false, "obj": 47, "diss": 20, "nota": 67, "cats": ["Negro"], "sj": false}, {"p": 55, "i": "728009802", "n": "Mesaque Vilmar Silvestre Viegas", "nasc": "22/12/1997", "jur": false, "obj": 53, "diss": 13, "nota": 66, "cats": [], "sj": false}, {"p": 56, "i": "728009380", "n": "Eric Weyner Romão Moura", "nasc": "03/08/1991", "jur": false, "obj": 46, "diss": 20, "nota": 66, "cats": ["Negro"], "sj": false}, {"p": 57, "i": "728023506", "n": "Daniel Reis Vieira", "nasc": "06/09/1982", "jur": false, "obj": 48, "diss": 18, "nota": 66, "cats": ["Negro"], "sj": false}, {"p": 58, "i": "728031175", "n": "Aldenei José Amaral Gato", "nasc": "05/04/1982", "jur": false, "obj": 46, "diss": 20, "nota": 66, "cats": ["Negro"], "sj": false}, {"p": 59, "i": "728016271", "n": "Marcela Barbosa Cardoso", "nasc": "28/07/1992", "jur": false, "obj": 46, "diss": 20, "nota": 66, "cats": ["PcD"], "sj": false}, {"p": 60, "i": "728018021", "n": "Janaina Silva Machado De Sa", "nasc": "03/05/1984", "jur": false, "obj": 51, "diss": 15, "nota": 66, "cats": [], "sj": false}, {"p": 61, "i": "728022978", "n": "Lucas Samuel De Araújo Pereira", "nasc": "21/03/1999", "jur": false, "obj": 46, "diss": 20, "nota": 66, "cats": ["Negro"], "sj": false}, {"p": 62, "i": "728023799", "n": "Stefanny Ferreira Gomes", "nasc": "15/07/1995", "jur": false, "obj": 51, "diss": 15, "nota": 66, "cats": ["Negro"], "sj": false}, {"p": 63, "i": "728030141", "n": "Mariana Leonel Da Silva", "nasc": "20/08/1993", "jur": false, "obj": 47, "diss": 18, "nota": 65, "cats": ["Negro"], "sj": false}, {"p": 64, "i": "728008347", "n": "Gabriel Moreno Martins", "nasc": "17/01/1998", "jur": false, "obj": 52, "diss": 13, "nota": 65, "cats": [], "sj": false}, {"p": 65, "i": "728005648", "n": "Deize Cristina Da Silva Correa", "nasc": "02/10/1987", "jur": false, "obj": 45, "diss": 20, "nota": 65, "cats": ["Negro"], "sj": false}, {"p": 66, "i": "728028908", "n": "Heloane Santos De Andrade", "nasc": "04/08/1988", "jur": false, "obj": 45, "diss": 20, "nota": 65, "cats": ["Negro"], "sj": false}, {"p": 67, "i": "728012657", "n": "Isabel Jung Alberto", "nasc": "21/06/1985", "jur": false, "obj": 50, "diss": 15, "nota": 65, "cats": [], "sj": false}, {"p": 68, "i": "728001356", "n": "Fernando Atividade Ferreira Da Silva", "nasc": "15/02/1989", "jur": false, "obj": 46, "diss": 18, "nota": 64, "cats": ["Negro"], "sj": false}, {"p": 69, "i": "728013096", "n": "Tales Apolinário Souza Silva", "nasc": "12/08/2005", "jur": false, "obj": 49, "diss": 15, "nota": 64, "cats": ["Negro"], "sj": false}, {"p": 70, "i": "728005017", "n": "Kamylla De Faria Macedo", "nasc": "05/03/1997", "jur": false, "obj": 51, "diss": 13, "nota": 64, "cats": ["Indigena"], "sj": false}, {"p": 71, "i": "728007639", "n": "Richardson Dos Santos Rodrigues", "nasc": "05/11/1985", "jur": false, "obj": 53, "diss": 11, "nota": 64, "cats": [], "sj": false}, {"p": 72, "i": "728027293", "n": "Magali Ribeiro Da Silva", "nasc": "05/02/1994", "jur": false, "obj": 46, "diss": 18, "nota": 64, "cats": ["Negro"], "sj": false}, {"p": 73, "i": "728021090", "n": "Camila Da Silva Leite", "nasc": "03/04/1987", "jur": false, "obj": 49, "diss": 15, "nota": 64, "cats": ["PcD"], "sj": false}, {"p": 74, "i": "728029086", "n": "Elis Lima Perrone", "nasc": "28/08/1987", "jur": false, "obj": 44, "diss": 20, "nota": 64, "cats": ["Negro"], "sj": false}, {"p": 75, "i": "728018677", "n": "Ana Carla Dos Prazeres Pinho", "nasc": "11/02/1991", "jur": false, "obj": 52, "diss": 11, "nota": 63, "cats": [], "sj": false}, {"p": 76, "i": "728001403", "n": "Ítalo Natan Oliveira De Araújo", "nasc": "03/02/1997", "jur": false, "obj": 48, "diss": 15, "nota": 63, "cats": ["Negro"], "sj": false}, {"p": 77, "i": "728012646", "n": "Rosiel Gonçalves Dantas", "nasc": "08/07/1977", "jur": false, "obj": 43, "diss": 20, "nota": 63, "cats": ["Negro"], "sj": false}, {"p": 78, "i": "728010412", "n": "Graziele Vital Do Nascimento", "nasc": "20/12/1995", "jur": false, "obj": 45, "diss": 18, "nota": 63, "cats": ["PcD"], "sj": false}, {"p": 79, "i": "728021210", "n": "Lidyomara Alves Silva Barbosa", "nasc": "08/09/1989", "jur": false, "obj": 50, "diss": 13, "nota": 63, "cats": [], "sj": false}, {"p": 80, "i": "728015210", "n": "Caio Vinnicius Valério De Castro Santos", "nasc": "20/04/1999", "jur": false, "obj": 43, "diss": 20, "nota": 63, "cats": ["Negro"], "sj": false}, {"p": 81, "i": "728017164", "n": "Iza Caroline Sena Rodrigues", "nasc": "12/12/1993", "jur": false, "obj": 43, "diss": 20, "nota": 63, "cats": ["Negro"], "sj": false}, {"p": 82, "i": "728025173", "n": "Renato Gonçalves De Andrade", "nasc": "14/12/1995", "jur": false, "obj": 52, "diss": 10, "nota": 62, "cats": [], "sj": false}, {"p": 83, "i": "728010645", "n": "Janaina Mayara Ambrosio Barros", "nasc": "25/01/1995", "jur": true, "obj": 47, "diss": 15, "nota": 62, "cats": ["Indigena"], "sj": false}, {"p": 84, "i": "728013602", "n": "Alan Robert Pinto Santos", "nasc": "13/08/1998", "jur": false, "obj": 47, "diss": 15, "nota": 62, "cats": ["Negro"], "sj": false}, {"p": 85, "i": "728020679", "n": "Paola Xaud Figueiredo", "nasc": "28/05/1985", "jur": false, "obj": 48, "diss": 14, "nota": 62, "cats": ["Negro"], "sj": false}, {"p": 86, "i": "728016790", "n": "Polyana Aline Lacerda Brandão Barbosa", "nasc": "21/10/1991", "jur": false, "obj": 50, "diss": 12, "nota": 62, "cats": [], "sj": false}, {"p": 87, "i": "728021164", "n": "Gislayne Silva De Deus", "nasc": "10/05/1989", "jur": false, "obj": 47, "diss": 15, "nota": 62, "cats": ["Negro"], "sj": false}, {"p": 88, "i": "728028878", "n": "Claudiná Miranda E Silva", "nasc": "22/02/1984", "jur": false, "obj": 51, "diss": 10, "nota": 61, "cats": ["Negro"], "sj": false}, {"p": 89, "i": "728017621", "n": "Jhonny William Da Silva Conceição", "nasc": "04/03/2000", "jur": false, "obj": 51, "diss": 10, "nota": 61, "cats": ["Negro"], "sj": false}, {"p": 90, "i": "728002561", "n": "Lucas Leonel Da Silva", "nasc": "30/12/1994", "jur": false, "obj": 43, "diss": 18, "nota": 61, "cats": ["Negro"], "sj": false}, {"p": 91, "i": "728007719", "n": "Danilo Barroso De Araújo", "nasc": "14/01/1995", "jur": false, "obj": 48, "diss": 13, "nota": 61, "cats": ["Negro"], "sj": false}, {"p": 92, "i": "728003622", "n": "Richardson Jhordan De Souza Santos", "nasc": "13/02/1995", "jur": false, "obj": 48, "diss": 13, "nota": 61, "cats": ["Negro"], "sj": false}, {"p": 93, "i": "728003594", "n": "Erasmo Henrique De Araújo Nascimento", "nasc": "30/11/1994", "jur": false, "obj": 48, "diss": 13, "nota": 61, "cats": ["Negro"], "sj": false}, {"p": 94, "i": "728000379", "n": "Sandro Palma Dos Santos", "nasc": "18/07/1978", "jur": false, "obj": 46, "diss": 15, "nota": 61, "cats": ["PcD"], "sj": false}, {"p": 95, "i": "728013350", "n": "Emily Pinheiro Morais", "nasc": "23/12/1995", "jur": false, "obj": 46, "diss": 15, "nota": 61, "cats": ["Negro"], "sj": false}, {"p": 96, "i": "728007052", "n": "Lucas Aguiar Ramos Silva", "nasc": "20/09/1997", "jur": false, "obj": 50, "diss": 10, "nota": 60, "cats": [], "sj": false}, {"p": 97, "i": "728021839", "n": "Flavianne Fontinele De Albuquerque", "nasc": "02/06/1995", "jur": false, "obj": 50, "diss": 10, "nota": 60, "cats": [], "sj": false}, {"p": 98, "i": "728008709", "n": "Marcio Jose Da Silva Maciel", "nasc": "12/05/1992", "jur": false, "obj": 50, "diss": 10, "nota": 60, "cats": [], "sj": false}, {"p": 99, "i": "728014940", "n": "Halyson David Bezerra Santos", "nasc": "15/02/1992", "jur": true, "obj": 42, "diss": 18, "nota": 60, "cats": ["Negro"], "sj": false}, {"p": 100, "i": "728001790", "n": "Marcus Vinícius Duarte", "nasc": "08/08/1992", "jur": false, "obj": 50, "diss": 10, "nota": 60, "cats": [], "sj": false}, {"p": 101, "i": "728031012", "n": "Julio Cesar", "nasc": "04/01/1989", "jur": false, "obj": 40, "diss": 20, "nota": 60, "cats": ["Negro"], "sj": false}, {"p": 102, "i": "728000592", "n": "Leticia Nascimento Peiro", "nasc": "31/08/1997", "jur": false, "obj": 40, "diss": 20, "nota": 60, "cats": ["Negro"], "sj": false}, {"p": 103, "i": "728019203", "n": "Victor Do Parana Dourado Neto", "nasc": "11/06/1993", "jur": false, "obj": 49, "diss": 10, "nota": 59, "cats": ["PcD"], "sj": false}, {"p": 104, "i": "728022981", "n": "Marcos Denny Faria Dos Santos", "nasc": "31/03/1987", "jur": false, "obj": 51, "diss": 8, "nota": 59, "cats": [], "sj": false}, {"p": 105, "i": "728000564", "n": "Juliana Fabricia Correia Orihuela", "nasc": "21/09/1999", "jur": false, "obj": 44, "diss": 15, "nota": 59, "cats": ["Negro"], "sj": false}, {"p": 106, "i": "728010721", "n": "Will Jones Pereira Moreira", "nasc": "25/07/1997", "jur": false, "obj": 41, "diss": 18, "nota": 59, "cats": ["PcD"], "sj": false}, {"p": 107, "i": "728026618", "n": "Gleidson José Garcia Da Cunha", "nasc": "17/04/2000", "jur": false, "obj": 39, "diss": 20, "nota": 59, "cats": ["Negro"], "sj": false}, {"p": 108, "i": "728008936", "n": "Jonathas Matheus Pereira Fernandes", "nasc": "07/07/2001", "jur": true, "obj": 45, "diss": 13, "nota": 58, "cats": ["Negro"], "sj": false}, {"p": 109, "i": "728030173", "n": "Ramon Soares De Moura", "nasc": "06/09/1993", "jur": false, "obj": 48, "diss": 10, "nota": 58, "cats": ["Negro"], "sj": false}, {"p": 110, "i": "728024844", "n": "Brad Shariff", "nasc": "26/11/1995", "jur": false, "obj": 43, "diss": 15, "nota": 58, "cats": ["Negro", "PcD"], "sj": false}, {"p": 111, "i": "728022069", "n": "Marco Antônio Corrêa Nazareth", "nasc": "10/03/1974", "jur": false, "obj": 38, "diss": 20, "nota": 58, "cats": ["Negro"], "sj": false}, {"p": 112, "i": "728014782", "n": "Danyel Bacelar", "nasc": "06/02/1990", "jur": false, "obj": 47, "diss": 10, "nota": 57, "cats": ["Negro"], "sj": false}, {"p": 113, "i": "728004322", "n": "Lazaro Moises Batista De Abreu Lima", "nasc": "13/12/1993", "jur": false, "obj": 47, "diss": 10, "nota": 57, "cats": ["Negro"], "sj": false}, {"p": 114, "i": "728016972", "n": "Marcos Correia Do Monte", "nasc": "28/04/1976", "jur": false, "obj": 37, "diss": 20, "nota": 57, "cats": ["Negro"], "sj": false}, {"p": 115, "i": "728007241", "n": "Beatriz Rosa Dos Santos", "nasc": "04/06/1988", "jur": false, "obj": 37, "diss": 20, "nota": 57, "cats": ["Negro"], "sj": false}, {"p": 116, "i": "728000196", "n": "Vinicius Pereira Justino da Silva", "nasc": "08/09/2001", "jur": false, "obj": 41, "diss": 15, "nota": 56, "cats": ["Negro"], "sj": false}, {"p": 117, "i": "728000587", "n": "Lucas Thiago De Medeiros Portela", "nasc": "25/01/2005", "jur": false, "obj": 46, "diss": 10, "nota": 56, "cats": ["Negro"], "sj": false}, {"p": 118, "i": "728010990", "n": "Rosangela Bonfim Da Silva", "nasc": "11/01/1987", "jur": false, "obj": 41, "diss": 15, "nota": 56, "cats": ["Negro"], "sj": false}, {"p": 119, "i": "728026111", "n": "Monique Dos Anjos Neves Rodrigues", "nasc": "03/10/1989", "jur": false, "obj": 36, "diss": 20, "nota": 56, "cats": ["Negro"], "sj": false}, {"p": 120, "i": "728014130", "n": "Francisco Cezar Bezerra Visgueira", "nasc": "01/07/1994", "jur": false, "obj": 45, "diss": 10, "nota": 55, "cats": ["Negro"], "sj": false}, {"p": 121, "i": "728010197", "n": "Mike Queiroz Oliveira", "nasc": "19/06/1986", "jur": false, "obj": 47, "diss": 8, "nota": 55, "cats": ["Negro"], "sj": false}, {"p": 122, "i": "728009577", "n": "Gabriel Pereira De Magalhães", "nasc": "08/05/2000", "jur": false, "obj": 43, "diss": 12, "nota": 55, "cats": ["Negro"], "sj": false}, {"p": 123, "i": "728015842", "n": "Elisângela Andrade Do Nascimento", "nasc": "27/10/1984", "jur": false, "obj": 42, "diss": 12, "nota": 54, "cats": ["Negro"], "sj": false}, {"p": 124, "i": "728006521", "n": "Najla Fernanda Silva Almeida", "nasc": "18/04/1989", "jur": false, "obj": 42, "diss": 12, "nota": 54, "cats": ["Negro"], "sj": false}, {"p": 125, "i": "728019596", "n": "Douglas Da Silva Borges", "nasc": "11/11/1981", "jur": false, "obj": 42, "diss": 12, "nota": 54, "cats": ["Negro"], "sj": false}, {"p": 126, "i": "728023111", "n": "Filippe Dos Santos Ferreira", "nasc": "28/02/1988", "jur": true, "obj": 44, "diss": 10, "nota": 54, "cats": ["Negro"], "sj": false}, {"p": 127, "i": "728018073", "n": "Lucas Caetano Sousa", "nasc": "14/12/1999", "jur": false, "obj": 44, "diss": 10, "nota": 54, "cats": ["PcD"], "sj": false}, {"p": 128, "i": "728018743", "n": "Ivan Pereira Da Silva", "nasc": "13/11/1988", "jur": false, "obj": 39, "diss": 15, "nota": 54, "cats": ["Negro"], "sj": false}, {"p": 129, "i": "728003358", "n": "Edeson Gomes De Alcantara", "nasc": "07/05/1989", "jur": false, "obj": 39, "diss": 15, "nota": 54, "cats": ["PcD"], "sj": false}, {"p": 130, "i": "728010973", "n": "Pâmella Mota Alves", "nasc": "05/06/1991", "jur": false, "obj": 39, "diss": 15, "nota": 54, "cats": ["Negro"], "sj": false}, {"p": 131, "i": "728000745", "n": "Rubenita Souza Moreira", "nasc": "19/07/1989", "jur": false, "obj": 34, "diss": 20, "nota": 54, "cats": ["Negro"], "sj": false}, {"p": 132, "i": "728010260", "n": "Bruna Batista Bezerra", "nasc": "16/04/1992", "jur": false, "obj": 45, "diss": 8, "nota": 53, "cats": ["Negro"], "sj": false}, {"p": 133, "i": "728015317", "n": "Renison Carlos Brilhante Ribeiro", "nasc": "10/12/1975", "jur": false, "obj": 43, "diss": 10, "nota": 53, "cats": ["Negro"], "sj": false}, {"p": 134, "i": "728021986", "n": "Jairo Pereira Da Silva", "nasc": "18/09/1993", "jur": false, "obj": 43, "diss": 10, "nota": 53, "cats": ["Negro"], "sj": false}, {"p": 135, "i": "728008171", "n": "Andrey Barbosa De Souza", "nasc": "29/11/1993", "jur": false, "obj": 41, "diss": 12, "nota": 53, "cats": ["PcD"], "sj": false}, {"p": 136, "i": "728009039", "n": "Selson Lima de Oliveira", "nasc": "18/03/1994", "jur": false, "obj": 43, "diss": 10, "nota": 53, "cats": ["Negro"], "sj": false}, {"p": 137, "i": "728002551", "n": "Darlin Silva Cruz", "nasc": "07/05/1994", "jur": false, "obj": 35, "diss": 18, "nota": 53, "cats": ["Negro"], "sj": false}, {"p": 138, "i": "728000979", "n": "Susanna Alaide Bacchus", "nasc": "09/09/1985", "jur": false, "obj": 38, "diss": 15, "nota": 53, "cats": ["Negro"], "sj": false}, {"p": 139, "i": "728012615", "n": "Juliana Siqueira Altoé", "nasc": "30/11/1996", "jur": false, "obj": 37, "diss": 15, "nota": 52, "cats": ["PcD"], "sj": false}, {"p": 140, "i": "728006298", "n": "Erivelton Da Silva Henrique", "nasc": "21/01/1990", "jur": false, "obj": 42, "diss": 10, "nota": 52, "cats": ["Negro"], "sj": false}, {"p": 141, "i": "728000876", "n": "Tarcisio Ramos Costa", "nasc": "25/08/2000", "jur": false, "obj": 34, "diss": 18, "nota": 52, "cats": ["PcD"], "sj": false}, {"p": 142, "i": "728022904", "n": "Clóvis João Barreto Do Nascimento", "nasc": "18/11/1972", "jur": false, "obj": 41, "diss": 10, "nota": 51, "cats": ["Negro"], "sj": false}, {"p": 143, "i": "728002499", "n": "Halisson Da Silva Rodrigues", "nasc": "23/03/1995", "jur": false, "obj": 31, "diss": 20, "nota": 51, "cats": ["Indigena"], "sj": false}, {"p": 144, "i": "728027974", "n": "Edilânia Ferreira Duarte", "nasc": "20/11/1981", "jur": false, "obj": 36, "diss": 15, "nota": 51, "cats": ["Indigena"], "sj": false}, {"p": 145, "i": "728008488", "n": "Vandercleyson Freitas Dos Santos", "nasc": "09/08/1994", "jur": false, "obj": 42, "diss": 8, "nota": 50, "cats": ["Negro"], "sj": false}, {"p": 146, "i": "728012064", "n": "Jhonatan Brasil Dos Santos", "nasc": "08/04/1994", "jur": false, "obj": 35, "diss": 15, "nota": 50, "cats": ["Negro"], "sj": false}, {"p": 147, "i": "728027577", "n": "Zenilton Galvão Nunes", "nasc": "27/05/1980", "jur": false, "obj": 41, "diss": 9, "nota": 50, "cats": ["Negro"], "sj": false}, {"p": 148, "i": "728015710", "n": "Hendrix Silva Ambrósio", "nasc": "07/06/1993", "jur": false, "obj": 40, "diss": 10, "nota": 50, "cats": ["Indigena"], "sj": false}, {"p": 149, "i": "728019674", "n": "Sueny Da Cunha Nunes", "nasc": "11/08/1996", "jur": false, "obj": 40, "diss": 10, "nota": 50, "cats": ["Negro"], "sj": false}, {"p": 150, "i": "728018455", "n": "Marcele Marília Costa De Brito", "nasc": "03/03/1988", "jur": false, "obj": 37, "diss": 13, "nota": 50, "cats": ["Negro"], "sj": false}, {"p": 151, "i": "728002381", "n": "Brunno Rafhael Silva Santana", "nasc": "10/07/1989", "jur": false, "obj": 35, "diss": 15, "nota": 50, "cats": ["PcD"], "sj": false}, {"p": 152, "i": "728002188", "n": "Danielle Silva Souza", "nasc": "08/02/1999", "jur": false, "obj": 32, "diss": 18, "nota": 50, "cats": ["Negro"], "sj": false}, {"p": 153, "i": "728018659", "n": "Vanessa Santos De Souza", "nasc": "30/04/1997", "jur": false, "obj": 39, "diss": 10, "nota": 49, "cats": ["Negro"], "sj": false}, {"p": 154, "i": "728024654", "n": "Brenda Veronica Castro De Caldas", "nasc": "08/07/1999", "jur": false, "obj": 39, "diss": 10, "nota": 49, "cats": ["Negro"], "sj": false}, {"p": 155, "i": "728010976", "n": "Malena Gomes Penhalosa", "nasc": "15/05/1992", "jur": false, "obj": 39, "diss": 10, "nota": 49, "cats": ["Negro"], "sj": false}, {"p": 156, "i": "728018411", "n": "Lidna Lima De Souza Lafayete", "nasc": "28/02/1994", "jur": false, "obj": 36, "diss": 13, "nota": 49, "cats": ["Negro"], "sj": false}, {"p": 157, "i": "728023293", "n": "Aryane Costa Rodrigues", "nasc": "04/08/1995", "jur": false, "obj": 34, "diss": 15, "nota": 49, "cats": ["Negro"], "sj": false}, {"p": 158, "i": "728027052", "n": "Ilana Pinheiro Sousa", "nasc": "08/04/1998", "jur": false, "obj": 40, "diss": 8, "nota": 48, "cats": ["Negro"], "sj": false}, {"p": 159, "i": "728018269", "n": "Iann Oliveira Silva", "nasc": "22/01/1998", "jur": false, "obj": 38, "diss": 10, "nota": 48, "cats": ["Negro"], "sj": false}, {"p": 160, "i": "728029892", "n": "Elissandro De Matos Galvao", "nasc": "10/06/1987", "jur": false, "obj": 37, "diss": 11, "nota": 48, "cats": ["PcD"], "sj": false}, {"p": 161, "i": "728013988", "n": "Tathianny Gomes Dos Santos", "nasc": "22/04/1997", "jur": false, "obj": 33, "diss": 15, "nota": 48, "cats": ["Indigena"], "sj": false}, {"p": 162, "i": "728021888", "n": "Gilvan Nascimento Santos Cruz", "nasc": "03/05/1981", "jur": false, "obj": 38, "diss": 10, "nota": 48, "cats": ["Negro"], "sj": false}, {"p": 163, "i": "728015543", "n": "Luisa Lima Nantes De Oliveira", "nasc": "28/02/1997", "jur": false, "obj": 37, "diss": 10, "nota": 47, "cats": ["PcD"], "sj": false}, {"p": 164, "i": "728026497", "n": "Katiely Rodrigues De Souza Silva", "nasc": "08/03/1986", "jur": false, "obj": 39, "diss": 8, "nota": 47, "cats": ["Negro"], "sj": false}, {"p": 165, "i": "728005711", "n": "Pedro Henrique Da Silva Ribeiro", "nasc": "13/04/1996", "jur": false, "obj": 39, "diss": 8, "nota": 47, "cats": ["Negro"], "sj": false}, {"p": 166, "i": "728001214", "n": "Clinton Junior George", "nasc": "12/07/1987", "jur": false, "obj": 37, "diss": 10, "nota": 47, "cats": ["Negro"], "sj": false}, {"p": 167, "i": "728029522", "n": "Terezinha Brito Mota", "nasc": "01/07/1985", "jur": false, "obj": 37, "diss": 10, "nota": 47, "cats": ["Negro"], "sj": false}, {"p": 168, "i": "728000660", "n": "Alan Cristian Matos Abreu", "nasc": "17/04/1996", "jur": false, "obj": 36, "diss": 10, "nota": 46, "cats": ["Negro"], "sj": false}, {"p": 169, "i": "728002833", "n": "Gercyvania Linhares Dos Santos", "nasc": "22/04/1998", "jur": false, "obj": 36, "diss": 10, "nota": 46, "cats": ["PcD"], "sj": false}, {"p": 170, "i": "728010105", "n": "Mirian Pereira Dos Reis Oliveira", "nasc": "12/11/2001", "jur": false, "obj": 36, "diss": 10, "nota": 46, "cats": ["Negro"], "sj": false}, {"p": 171, "i": "728024187", "n": "Danilo Silva De Souza", "nasc": "27/12/1997", "jur": false, "obj": 35, "diss": 10, "nota": 45, "cats": ["Indigena"], "sj": false}, {"p": 172, "i": "728021005", "n": "Giovani Calerri Dos Santos Pena Júnior", "nasc": "20/06/1989", "jur": false, "obj": 37, "diss": 8, "nota": 45, "cats": ["Indigena"], "sj": false}, {"p": 173, "i": "728028293", "n": "Marcos Rafael Santos Da Silva", "nasc": "20/02/1989", "jur": false, "obj": 32, "diss": 11, "nota": 43, "cats": ["Negro"], "sj": false}, {"p": 174, "i": "728023431", "n": "Crislane Mendes Dos Santos", "nasc": "29/06/1994", "jur": false, "obj": 33, "diss": 10, "nota": 43, "cats": ["Negro"], "sj": false}, {"p": 175, "i": "728005261", "n": "Paulo Carlos De Araujo Freitas", "nasc": "02/10/1990", "jur": false, "obj": 35, "diss": 8, "nota": 43, "cats": ["Negro"], "sj": false}, {"p": 176, "i": "728001510", "n": "Deize Macedo Dos Santos", "nasc": "29/03/1989", "jur": false, "obj": 34, "diss": 8, "nota": 42, "cats": ["Indigena"], "sj": false}, {"p": 177, "i": "728010108", "n": "Ramon Almeida Da Silva", "nasc": "23/08/1985", "jur": false, "obj": 30, "diss": 12, "nota": 42, "cats": ["Negro"], "sj": false}, {"p": 178, "i": "728023250", "n": "Glaucielem Silva De Souza", "nasc": "30/10/1988", "jur": false, "obj": 31, "diss": 10, "nota": 41, "cats": ["Indigena"], "sj": false}, {"p": 179, "i": "728028960", "n": "Geane Sousa Silva", "nasc": "14/04/1987", "jur": false, "obj": 31, "diss": 10, "nota": 41, "cats": ["Negro"], "sj": false}, {"p": 180, "i": "728016501", "n": "Heilany Viegas Melo", "nasc": "03/07/1996", "jur": false, "obj": 31, "diss": 10, "nota": 41, "cats": ["Negro"], "sj": false}, {"p": 181, "i": "728031051", "n": "Josilene Ribeiro Marques", "nasc": "03/01/1977", "jur": false, "obj": 33, "diss": 8, "nota": 41, "cats": ["Indigena"], "sj": false}, {"p": 182, "i": "728012842", "n": "Noeli Cristina Kozlowski", "nasc": "07/02/1993", "jur": false, "obj": 31, "diss": 8, "nota": 39, "cats": ["PcD"], "sj": false}, {"p": 183, "i": "728011564", "n": "Maria Da Conceição Moraes De Oliveira", "nasc": "20/02/1979", "jur": false, "obj": 28, "diss": 10, "nota": 38, "cats": ["Negro"], "sj": false}], "CIBERSEGURANÇA": [{"p": 1, "i": "728006657", "n": "Antonyn Lira Araújo", "nasc": "25/03/1994", "jur": false, "obj": 45, "diss": 18, "nota": 63, "cats": [], "sj": false}, {"p": 2, "i": "728013756", "n": "Felippe Da Silva Leal", "nasc": "05/10/1988", "jur": true, "obj": 44, "diss": 15, "nota": 59, "cats": [], "sj": false}, {"p": 3, "i": "728020829", "n": "Max Leite De Aguiar", "nasc": "27/09/1996", "jur": false, "obj": 41, "diss": 18, "nota": 59, "cats": [], "sj": false}, {"p": 4, "i": "728023941", "n": "Vinícius Pereira Almeida", "nasc": "08/11/1993", "jur": false, "obj": 42, "diss": 16, "nota": 58, "cats": [], "sj": false}, {"p": 5, "i": "728010699", "n": "Heber Augusto Prill Lima", "nasc": "31/12/1990", "jur": false, "obj": 40, "diss": 16, "nota": 56, "cats": [], "sj": false}, {"p": 6, "i": "728012044", "n": "Jopper Gabriel Queiroz Chaves", "nasc": "12/07/1997", "jur": false, "obj": 37, "diss": 19, "nota": 56, "cats": [], "sj": false}, {"p": 7, "i": "728001942", "n": "Cleber Medeiros Silva", "nasc": "07/07/1986", "jur": true, "obj": 39, "diss": 16, "nota": 55, "cats": ["Negro"], "sj": false}, {"p": 8, "i": "728020751", "n": "Hugo Lima Romão", "nasc": "24/07/2001", "jur": false, "obj": 36, "diss": 17, "nota": 53, "cats": ["Negro"], "sj": false}, {"p": 9, "i": "728014080", "n": "Joanderson Goncalves De Lima", "nasc": "25/08/1997", "jur": false, "obj": 35, "diss": 18, "nota": 53, "cats": ["Negro"], "sj": false}, {"p": 10, "i": "728028442", "n": "Wesley De Souza Viana", "nasc": "08/12/1986", "jur": false, "obj": 34, "diss": 17, "nota": 51, "cats": ["Negro", "PcD"], "sj": false}, {"p": 11, "i": "728003077", "n": "Marcelo Firmino Da Silva", "nasc": "22/05/1985", "jur": false, "obj": 41, "diss": 9, "nota": 50, "cats": [], "sj": false}, {"p": 12, "i": "728022755", "n": "Erick Tibúrcio De Azevedo Souza", "nasc": "05/07/2003", "jur": false, "obj": 35, "diss": 15, "nota": 50, "cats": [], "sj": false}, {"p": 13, "i": "728000673", "n": "Fábio Farias Pereira", "nasc": "26/11/1982", "jur": true, "obj": 35, "diss": 13, "nota": 48, "cats": ["Negro"], "sj": false}, {"p": 14, "i": "728003818", "n": "Paulo Henrique Barbosa", "nasc": "16/06/1993", "jur": false, "obj": 33, "diss": 14, "nota": 47, "cats": ["PcD"], "sj": false}, {"p": 15, "i": "728000277", "n": "Saymon Martins Lima", "nasc": "13/02/1992", "jur": false, "obj": 36, "diss": 10, "nota": 46, "cats": [], "sj": false}, {"p": 16, "i": "728022999", "n": "Thiago Guilherme Meira Mandarano De Souza", "nasc": "17/05/1996", "jur": false, "obj": 28, "diss": 18, "nota": 46, "cats": ["Negro"], "sj": false}, {"p": 17, "i": "728000629", "n": "Francisco Fabricio Campos Silva", "nasc": "20/02/1983", "jur": false, "obj": 32, "diss": 12, "nota": 44, "cats": ["Negro", "PcD"], "sj": false}, {"p": 18, "i": "728002515", "n": "Thales Thyago Moreira Santos", "nasc": "27/04/1992", "jur": false, "obj": 35, "diss": 8, "nota": 43, "cats": [], "sj": false}, {"p": 19, "i": "728021857", "n": "Irene Barreto Gomes Pantoja", "nasc": "19/08/1972", "jur": false, "obj": 30, "diss": 11, "nota": 41, "cats": ["Negro"], "sj": false}], "CIÊNCIA DE DADOS E ANALYTICS": [{"p": 1, "i": "728011856", "n": "Marcelo Gomes Barbosa", "nasc": "11/08/1986", "jur": false, "obj": 44, "diss": 19, "nota": 63, "cats": [], "sj": false}, {"p": 2, "i": "728010328", "n": "Hudson Da Silveira Santos", "nasc": "15/09/1989", "jur": false, "obj": 45, "diss": 17, "nota": 62, "cats": ["Negro"], "sj": false}, {"p": 3, "i": "728013123", "n": "Weberson Santos Ferreira", "nasc": "12/03/1980", "jur": false, "obj": 40, "diss": 20, "nota": 60, "cats": [], "sj": false}, {"p": 4, "i": "728022103", "n": "Filipe Matias De Sousa", "nasc": "03/05/1989", "jur": true, "obj": 40, "diss": 20, "nota": 60, "cats": ["Negro"], "sj": false}, {"p": 5, "i": "728002884", "n": "Felipe Abrahim Ramalho Xaud", "nasc": "17/07/1995", "jur": false, "obj": 40, "diss": 15, "nota": 55, "cats": [], "sj": false}, {"p": 6, "i": "728022785", "n": "Felipe Gomes Da Silva", "nasc": "29/07/1993", "jur": false, "obj": 41, "diss": 14, "nota": 55, "cats": ["PcD"], "sj": false}, {"p": 7, "i": "728010264", "n": "David Wesley Rodrigues Guerra De Aguiar", "nasc": "02/11/1992", "jur": false, "obj": 38, "diss": 13, "nota": 51, "cats": [], "sj": false}, {"p": 8, "i": "728010851", "n": "Irislenisson De Souza Oliveira", "nasc": "29/04/1989", "jur": false, "obj": 29, "diss": 16, "nota": 45, "cats": ["Negro"], "sj": false}, {"p": 9, "i": "728009068", "n": "Luiz Fernandes Oliveira De Souza", "nasc": "02/05/1999", "jur": false, "obj": 30, "diss": 8, "nota": 38, "cats": ["PcD"], "sj": false}], "CONTABILIDADE": [{"p": 1, "i": "728009590", "n": "Assis Weverton De Oliveira Alexandre", "nasc": "08/11/1992", "jur": false, "obj": 48, "diss": 17, "nota": 65, "cats": [], "sj": false}, {"p": 2, "i": "728026902", "n": "Leonardo Pereira Santos", "nasc": "30/10/1989", "jur": false, "obj": 44, "diss": 18, "nota": 62, "cats": [], "sj": false}, {"p": 3, "i": "728015171", "n": "Shelby Marques Da Silva", "nasc": "10/11/1995", "jur": false, "obj": 47, "diss": 14, "nota": 61, "cats": ["Negro"], "sj": false}, {"p": 4, "i": "728012015", "n": "Lucas Pereira Lima", "nasc": "20/12/1995", "jur": false, "obj": 48, "diss": 12, "nota": 60, "cats": [], "sj": false}, {"p": 5, "i": "728011326", "n": "Vitor Gabriel Silva Barbosa", "nasc": "26/06/1998", "jur": false, "obj": 49, "diss": 9, "nota": 58, "cats": [], "sj": false}, {"p": 6, "i": "728023060", "n": "Cleyde Gonçalves Jardim Moreira", "nasc": "03/09/1984", "jur": false, "obj": 47, "diss": 11, "nota": 58, "cats": ["Negro"], "sj": false}, {"p": 7, "i": "728000415", "n": "Caroline Bezerra De Sousa", "nasc": "16/01/1989", "jur": false, "obj": 44, "diss": 13, "nota": 57, "cats": ["Negro"], "sj": false}, {"p": 8, "i": "728007692", "n": "Deyverson Cavalcante Pereira", "nasc": "29/03/1994", "jur": false, "obj": 44, "diss": 11, "nota": 55, "cats": [], "sj": false}, {"p": 9, "i": "728010073", "n": "Pâmela Priscilla Da Costa Carvalho", "nasc": "25/03/1993", "jur": false, "obj": 41, "diss": 14, "nota": 55, "cats": [], "sj": false}, {"p": 10, "i": "728018325", "n": "Izabely Ramos Dos Santos", "nasc": "09/06/2002", "jur": false, "obj": 44, "diss": 10, "nota": 54, "cats": [], "sj": false}, {"p": 11, "i": "728020670", "n": "Eslei Hoffmann", "nasc": "31/05/1993", "jur": false, "obj": 39, "diss": 15, "nota": 54, "cats": [], "sj": false}, {"p": 12, "i": "728009694", "n": "Riso Duarte Barbosa Filho", "nasc": "08/03/1988", "jur": false, "obj": 41, "diss": 10, "nota": 51, "cats": [], "sj": false}, {"p": 13, "i": "728023283", "n": "Marcos Do Nascimento Vale", "nasc": "12/06/1987", "jur": false, "obj": 38, "diss": 13, "nota": 51, "cats": ["PcD"], "sj": false}, {"p": 14, "i": "728022466", "n": "William Barreiros De Oliveira", "nasc": "18/08/1982", "jur": false, "obj": 42, "diss": 8, "nota": 50, "cats": [], "sj": false}, {"p": 15, "i": "728003027", "n": "Rayeli Luany Dos Santos Paula", "nasc": "06/11/1987", "jur": true, "obj": 38, "diss": 9, "nota": 47, "cats": ["Negro"], "sj": false}, {"p": 16, "i": "728010131", "n": "Estefeson Uchoa Da Silva", "nasc": "22/03/1997", "jur": false, "obj": 34, "diss": 10, "nota": 44, "cats": ["Negro"], "sj": false}, {"p": 17, "i": "728011003", "n": "Fernanda Evanilde Pereira Werlang", "nasc": "01/03/1994", "jur": false, "obj": 29, "diss": 10, "nota": 39, "cats": ["PcD"], "sj": false}], "DESENVOLVIMENTO DE SISTEMAS": [{"p": 1, "i": "728026296", "n": "Raildo Barros Rodrigues", "nasc": "29/06/1992", "jur": false, "obj": 46, "diss": 17, "nota": 63, "cats": [], "sj": false}, {"p": 2, "i": "728023259", "n": "Rodrigo Da Silva Brandao", "nasc": "14/07/1993", "jur": false, "obj": 46, "diss": 14, "nota": 60, "cats": [], "sj": false}, {"p": 3, "i": "728010716", "n": "Allan Cordeiro Rocha De Araújo", "nasc": "26/10/1997", "jur": false, "obj": 43, "diss": 14, "nota": 57, "cats": [], "sj": false}, {"p": 4, "i": "728009057", "n": "Eduardo Henrique Freire Machado", "nasc": "30/08/2001", "jur": false, "obj": 41, "diss": 16, "nota": 57, "cats": [], "sj": false}, {"p": 5, "i": "728013560", "n": "Antonio Sckendall Da Silva Sousa", "nasc": "10/01/1995", "jur": false, "obj": 43, "diss": 14, "nota": 57, "cats": ["Negro", "PcD"], "sj": false}, {"p": 6, "i": "728030240", "n": "Arley Lima Da Silveira", "nasc": "20/07/1990", "jur": false, "obj": 40, "diss": 15, "nota": 55, "cats": [], "sj": false}, {"p": 7, "i": "728020820", "n": "Leandro Ferreira Barbosa", "nasc": "22/09/1993", "jur": false, "obj": 39, "diss": 15, "nota": 54, "cats": [], "sj": false}, {"p": 8, "i": "728011867", "n": "Luigi Muller Sousa Linhares", "nasc": "08/09/1998", "jur": false, "obj": 41, "diss": 12, "nota": 53, "cats": [], "sj": false}, {"p": 9, "i": "728001947", "n": "Marcus Vinicius Ayres De Morais", "nasc": "14/08/1978", "jur": false, "obj": 37, "diss": 16, "nota": 53, "cats": [], "sj": false}, {"p": 10, "i": "728026455", "n": "Giovani Fernandes Dos Santos Oliveira", "nasc": "27/08/1995", "jur": false, "obj": 40, "diss": 12, "nota": 52, "cats": ["Negro"], "sj": false}, {"p": 11, "i": "728021880", "n": "Antônio Fernando Da Possa Pantoja", "nasc": "10/10/1979", "jur": false, "obj": 35, "diss": 15, "nota": 50, "cats": ["Negro"], "sj": false}, {"p": 12, "i": "728017888", "n": "Rafael Benzaquem Neto", "nasc": "28/09/1987", "jur": false, "obj": 33, "diss": 16, "nota": 49, "cats": ["Negro", "PcD"], "sj": false}, {"p": 13, "i": "728013267", "n": "Viviane Da Silva Alves", "nasc": "08/04/1994", "jur": false, "obj": 34, "diss": 14, "nota": 48, "cats": ["Negro"], "sj": false}, {"p": 14, "i": "728004520", "n": "Cássius Vinícius Lima Oliveira", "nasc": "13/01/2004", "jur": false, "obj": 32, "diss": 16, "nota": 48, "cats": ["Negro"], "sj": false}, {"p": 15, "i": "728023928", "n": "Paulo Richard Perdiz Itapirema", "nasc": "21/05/1987", "jur": false, "obj": 30, "diss": 17, "nota": 47, "cats": ["Negro"], "sj": false}, {"p": 16, "i": "728008493", "n": "Tatiana Dutra Borghi", "nasc": "27/01/1986", "jur": false, "obj": 36, "diss": 10, "nota": 46, "cats": [], "sj": false}, {"p": 17, "i": "728003080", "n": "Stefferson Luz Silva", "nasc": "06/09/1994", "jur": false, "obj": 28, "diss": 10, "nota": 38, "cats": ["PcD"], "sj": false}], "DIREITO": [{"p": 1, "i": "728008815", "n": "André Afonso De Moura Souza Cruz", "nasc": "22/11/1985", "jur": false, "obj": 57, "diss": 14, "nota": 71, "cats": [], "sj": false}, {"p": 2, "i": "728008328", "n": "Gabriel Vasconcelos Aguilar Dos Santos", "nasc": "12/08/1995", "jur": false, "obj": 58, "diss": 11, "nota": 69, "cats": [], "sj": false}, {"p": 3, "i": "728003074", "n": "Erlen Maria Reis De Araújo", "nasc": "02/05/1992", "jur": false, "obj": 52, "diss": 16, "nota": 68, "cats": [], "sj": false}, {"p": 4, "i": "728010350", "n": "André Gabriel Da Silva Soares", "nasc": "28/11/1999", "jur": false, "obj": 56, "diss": 11, "nota": 67, "cats": [], "sj": false}, {"p": 5, "i": "728010038", "n": "Brígida Letícia Silva De Souza", "nasc": "30/08/1995", "jur": false, "obj": 53, "diss": 14, "nota": 67, "cats": [], "sj": false}, {"p": 6, "i": "728003963", "n": "Jackson Macedo Dos Santos", "nasc": "29/05/1999", "jur": false, "obj": 53, "diss": 13, "nota": 66, "cats": [], "sj": false}, {"p": 7, "i": "728008939", "n": "Talita Yoshie Nakata", "nasc": "21/05/1993", "jur": false, "obj": 53, "diss": 13, "nota": 66, "cats": [], "sj": true}, {"p": 8, "i": "728002631", "n": "Martha Klívia De Luna Torres", "nasc": "26/05/1980", "jur": false, "obj": 51, "diss": 15, "nota": 66, "cats": [], "sj": false}, {"p": 9, "i": "728000356", "n": "Jessyka Maysonnave Barauna Magalhaes", "nasc": "05/11/1996", "jur": false, "obj": 52, "diss": 14, "nota": 66, "cats": [], "sj": false}, {"p": 10, "i": "728008152", "n": "Ademar Loiola Mota Junior", "nasc": "25/03/1988", "jur": false, "obj": 51, "diss": 14, "nota": 65, "cats": [], "sj": false}, {"p": 11, "i": "728026682", "n": "Breno Charles Martins Dos Santos", "nasc": "29/05/1993", "jur": false, "obj": 54, "diss": 11, "nota": 65, "cats": [], "sj": false}, {"p": 12, "i": "728012810", "n": "Andrezza Gabrielli Silveira Menezes", "nasc": "19/01/2000", "jur": false, "obj": 53, "diss": 12, "nota": 65, "cats": [], "sj": false}, {"p": 13, "i": "728010778", "n": "Paulo Heurison Ximenes De Aquino Guedes", "nasc": "02/03/1999", "jur": false, "obj": 50, "diss": 15, "nota": 65, "cats": [], "sj": false}, {"p": 14, "i": "728003179", "n": "Jordana Brasileira Da Silva", "nasc": "13/02/1997", "jur": false, "obj": 51, "diss": 14, "nota": 65, "cats": [], "sj": false}, {"p": 15, "i": "728024793", "n": "Willyan Santos De Sousa Gimaque", "nasc": "05/06/1994", "jur": false, "obj": 52, "diss": 12, "nota": 64, "cats": [], "sj": false}, {"p": 16, "i": "728007433", "n": "Wisyane Gabrielle Dos Santos Costa", "nasc": "18/05/1989", "jur": false, "obj": 53, "diss": 11, "nota": 64, "cats": [], "sj": false}, {"p": 17, "i": "728001037", "n": "Caio Welder Cardoso De Melo", "nasc": "16/09/2002", "jur": false, "obj": 55, "diss": 9, "nota": 64, "cats": [], "sj": false}, {"p": 18, "i": "728023420", "n": "Kevin Chinelatto Mathias", "nasc": "25/02/1991", "jur": false, "obj": 51, "diss": 13, "nota": 64, "cats": [], "sj": false}, {"p": 19, "i": "728007969", "n": "Marcia Da Silva Souto", "nasc": "13/06/1998", "jur": false, "obj": 52, "diss": 12, "nota": 64, "cats": [], "sj": false}, {"p": 20, "i": "728028622", "n": "Rodrigo Torres Schowantz", "nasc": "14/04/1999", "jur": false, "obj": 50, "diss": 14, "nota": 64, "cats": [], "sj": false}, {"p": 21, "i": "728000706", "n": "Aline De Castro Rosa Souza", "nasc": "28/08/1995", "jur": false, "obj": 50, "diss": 14, "nota": 64, "cats": [], "sj": false}, {"p": 22, "i": "728010510", "n": "Luís Filipe Da Silva Nascimento", "nasc": "15/12/2001", "jur": false, "obj": 50, "diss": 14, "nota": 64, "cats": [], "sj": false}, {"p": 23, "i": "728008836", "n": "Franklin Jose Varela Santos Fernandes", "nasc": "25/10/1984", "jur": false, "obj": 53, "diss": 10, "nota": 63, "cats": [], "sj": false}, {"p": 24, "i": "728019359", "n": "Maria Nazare Santos Ferreira", "nasc": "27/04/1981", "jur": false, "obj": 50, "diss": 13, "nota": 63, "cats": [], "sj": false}, {"p": 25, "i": "728000998", "n": "Maria Carolina De Oliveira Camargo", "nasc": "21/10/1996", "jur": false, "obj": 51, "diss": 12, "nota": 63, "cats": [], "sj": false}, {"p": 26, "i": "728006008", "n": "Flavia Nogueira Chagas", "nasc": "20/04/1997", "jur": false, "obj": 50, "diss": 13, "nota": 63, "cats": [], "sj": false}, {"p": 27, "i": "728008861", "n": "Líllian Rodrigues Melo", "nasc": "17/10/1994", "jur": false, "obj": 51, "diss": 12, "nota": 63, "cats": [], "sj": false}, {"p": 28, "i": "728017281", "n": "Luiz Mario Barbosa Viana", "nasc": "13/03/1988", "jur": false, "obj": 49, "diss": 13, "nota": 62, "cats": ["Negro"], "sj": true}, {"p": 29, "i": "728021040", "n": "Felipe Lima Almeida De Oliveira", "nasc": "23/08/2003", "jur": false, "obj": 50, "diss": 12, "nota": 62, "cats": ["Negro"], "sj": false}, {"p": 30, "i": "728017505", "n": "Ramon Pereira Arruda", "nasc": "28/10/1995", "jur": false, "obj": 47, "diss": 15, "nota": 62, "cats": ["Negro"], "sj": false}, {"p": 31, "i": "728015882", "n": "Maruzan Aguiar Azevedo Junior", "nasc": "12/04/1996", "jur": false, "obj": 47, "diss": 14, "nota": 61, "cats": ["Negro"], "sj": true}, {"p": 32, "i": "728014513", "n": "Caio Bruno Filgueira Bezerra", "nasc": "05/05/1998", "jur": false, "obj": 50, "diss": 11, "nota": 61, "cats": ["PcD"], "sj": false}, {"p": 33, "i": "728015335", "n": "Augusto César Sampaio Albuquerque", "nasc": "05/05/1993", "jur": false, "obj": 50, "diss": 11, "nota": 61, "cats": ["Indigena"], "sj": false}, {"p": 34, "i": "728009628", "n": "Micael Ferreira Menezes", "nasc": "06/03/1998", "jur": false, "obj": 51, "diss": 9, "nota": 60, "cats": [], "sj": false}, {"p": 35, "i": "728016889", "n": "Luis Fellipe Souza Da Silva", "nasc": "27/07/1991", "jur": false, "obj": 48, "diss": 12, "nota": 60, "cats": ["Negro"], "sj": false}, {"p": 36, "i": "728017013", "n": "Marcela Blandina Da Silva Cruz", "nasc": "31/10/1985", "jur": false, "obj": 46, "diss": 14, "nota": 60, "cats": ["Negro"], "sj": false}, {"p": 37, "i": "728014296", "n": "Mônica Augusta Barroso Da Costa", "nasc": "26/02/1999", "jur": false, "obj": 50, "diss": 10, "nota": 60, "cats": [], "sj": false}, {"p": 38, "i": "728002427", "n": "Herison Costa Da Silva", "nasc": "28/10/1994", "jur": false, "obj": 46, "diss": 13, "nota": 59, "cats": ["Negro"], "sj": false}, {"p": 39, "i": "728000131", "n": "Felipe Souza De Oliveira", "nasc": "11/06/1988", "jur": false, "obj": 48, "diss": 11, "nota": 59, "cats": ["Negro"], "sj": false}, {"p": 40, "i": "728000103", "n": "Elson Gomes Bezerra", "nasc": "12/11/1989", "jur": true, "obj": 44, "diss": 14, "nota": 58, "cats": ["PcD"], "sj": false}, {"p": 41, "i": "728017659", "n": "Wellington Victor Da Silva Vieira", "nasc": "13/05/1993", "jur": false, "obj": 49, "diss": 9, "nota": 58, "cats": ["PcD"], "sj": false}, {"p": 42, "i": "728022097", "n": "Jair Muller Caldeira De Carvalho", "nasc": "18/05/1998", "jur": false, "obj": 50, "diss": 8, "nota": 58, "cats": [], "sj": false}, {"p": 43, "i": "728002857", "n": "Sarah Lívia Paiva De Oliveira Alcântara", "nasc": "02/06/1993", "jur": true, "obj": 44, "diss": 14, "nota": 58, "cats": ["Negro"], "sj": false}, {"p": 44, "i": "728009834", "n": "Lauro Antonio De Lucena Ramos Epifanio", "nasc": "25/01/2000", "jur": false, "obj": 45, "diss": 13, "nota": 58, "cats": ["Negro"], "sj": false}, {"p": 45, "i": "728001759", "n": "João Ramos Rebouças", "nasc": "19/05/1997", "jur": false, "obj": 43, "diss": 15, "nota": 58, "cats": ["Negro"], "sj": false}, {"p": 46, "i": "728005960", "n": "Bruno Leonardo Caciano De Oliveira", "nasc": "06/10/1978", "jur": false, "obj": 42, "diss": 15, "nota": 57, "cats": ["PcD"], "sj": false}, {"p": 47, "i": "728006956", "n": "Adriane Cristiane Costa E Silva", "nasc": "09/11/1994", "jur": false, "obj": 44, "diss": 13, "nota": 57, "cats": ["Negro"], "sj": false}, {"p": 48, "i": "728029346", "n": "Carolyne Oliveira Amorim", "nasc": "06/05/1997", "jur": false, "obj": 44, "diss": 13, "nota": 57, "cats": ["Negro"], "sj": false}, {"p": 49, "i": "728031002", "n": "Lizandra Do Socorro Maciel Santos", "nasc": "06/01/1998", "jur": false, "obj": 47, "diss": 9, "nota": 56, "cats": ["Negro"], "sj": false}, {"p": 50, "i": "728010979", "n": "Adriely Raiany De Abreu Silva", "nasc": "24/06/1996", "jur": false, "obj": 41, "diss": 15, "nota": 56, "cats": ["Negro"], "sj": false}, {"p": 51, "i": "728010275", "n": "Thaina Samara Guerra Farias De Aguiar", "nasc": "03/12/1995", "jur": false, "obj": 46, "diss": 9, "nota": 55, "cats": ["PcD"], "sj": true}, {"p": 52, "i": "728000258", "n": "Rogério Lima Albuquerque", "nasc": "18/10/1991", "jur": false, "obj": 41, "diss": 14, "nota": 55, "cats": ["Negro"], "sj": false}, {"p": 53, "i": "728022596", "n": "Orlando Patricio De Sousa", "nasc": "13/05/1981", "jur": false, "obj": 39, "diss": 16, "nota": 55, "cats": ["Negro"], "sj": false}, {"p": 54, "i": "728007803", "n": "Caio Almeida De Carvalho", "nasc": "08/12/1986", "jur": false, "obj": 43, "diss": 12, "nota": 55, "cats": ["Negro"], "sj": false}, {"p": 55, "i": "728007746", "n": "Kérlynni Misraelly Cavalcanti Muniz Caiado", "nasc": "30/08/1993", "jur": false, "obj": 45, "diss": 9, "nota": 54, "cats": ["Negro"], "sj": false}, {"p": 56, "i": "728005009", "n": "Adjane Sarmento Barbosa", "nasc": "28/02/1982", "jur": false, "obj": 42, "diss": 12, "nota": 54, "cats": ["Indigena"], "sj": false}, {"p": 57, "i": "728015408", "n": "Jailson Silva Santana", "nasc": "06/07/1991", "jur": false, "obj": 41, "diss": 13, "nota": 54, "cats": ["Negro"], "sj": false}, {"p": 58, "i": "728012165", "n": "Paulo Sergio Freitas Mendes", "nasc": "27/03/1995", "jur": false, "obj": 42, "diss": 12, "nota": 54, "cats": ["Negro"], "sj": false}, {"p": 59, "i": "728002000", "n": "Carlos Henrique Lopes Da Silva", "nasc": "08/11/1991", "jur": false, "obj": 45, "diss": 8, "nota": 53, "cats": ["PcD"], "sj": false}, {"p": 60, "i": "728015984", "n": "Julianna De Kássia Oliveira Alves", "nasc": "25/04/1985", "jur": false, "obj": 39, "diss": 14, "nota": 53, "cats": ["PcD"], "sj": false}, {"p": 61, "i": "728011553", "n": "Fagner Tiago Dos Santos", "nasc": "06/06/1992", "jur": false, "obj": 40, "diss": 13, "nota": 53, "cats": ["Negro"], "sj": false}, {"p": 62, "i": "728008556", "n": "Íria Maionara Magalhães Do Carmo", "nasc": "09/07/2001", "jur": false, "obj": 44, "diss": 9, "nota": 53, "cats": ["Indigena"], "sj": false}, {"p": 63, "i": "728015667", "n": "Marcio Da Silva Granez", "nasc": "10/07/1972", "jur": false, "obj": 41, "diss": 12, "nota": 53, "cats": ["PcD"], "sj": false}, {"p": 64, "i": "728008884", "n": "Suellen Peres Leitão", "nasc": "08/10/1982", "jur": false, "obj": 39, "diss": 13, "nota": 52, "cats": ["PcD"], "sj": false}, {"p": 65, "i": "728008001", "n": "Bruno Gabriel Sousa Da Silva", "nasc": "28/12/2000", "jur": false, "obj": 39, "diss": 13, "nota": 52, "cats": ["Negro"], "sj": false}, {"p": 66, "i": "728016366", "n": "Webson Do Carmo Silva", "nasc": "02/08/1992", "jur": false, "obj": 42, "diss": 10, "nota": 52, "cats": ["Negro"], "sj": false}, {"p": 67, "i": "728012371", "n": "Adriane Gama Morote", "nasc": "22/04/1990", "jur": false, "obj": 42, "diss": 9, "nota": 51, "cats": ["Negro"], "sj": false}, {"p": 68, "i": "728005481", "n": "Anderson Lucas Santos Da Silva", "nasc": "09/09/2000", "jur": false, "obj": 41, "diss": 10, "nota": 51, "cats": ["PcD"], "sj": false}, {"p": 69, "i": "728000145", "n": "Thiago Henrique Barros Marques", "nasc": "15/05/1995", "jur": false, "obj": 36, "diss": 15, "nota": 51, "cats": ["Indigena"], "sj": false}, {"p": 70, "i": "728004129", "n": "Eduarda Karen Lima De Melo", "nasc": "12/05/1997", "jur": false, "obj": 38, "diss": 13, "nota": 51, "cats": ["Negro"], "sj": false}, {"p": 71, "i": "728006191", "n": "Vanessa Lopes Silva", "nasc": "07/01/2000", "jur": false, "obj": 35, "diss": 16, "nota": 51, "cats": ["Negro"], "sj": false}, {"p": 72, "i": "728000167", "n": "Ronaldo Correia Da Silva", "nasc": "22/09/1979", "jur": false, "obj": 40, "diss": 10, "nota": 50, "cats": ["Negro"], "sj": false}, {"p": 73, "i": "728011407", "n": "Luis Paulo Melonio Amorim", "nasc": "26/03/1987", "jur": false, "obj": 41, "diss": 9, "nota": 50, "cats": ["Negro"], "sj": false}, {"p": 74, "i": "728008996", "n": "Joanna Fernanda Araujo Moraes", "nasc": "17/04/2000", "jur": false, "obj": 41, "diss": 9, "nota": 50, "cats": ["Negro"], "sj": false}, {"p": 75, "i": "728005596", "n": "Wanderson Santos Freitas", "nasc": "19/01/1991", "jur": false, "obj": 37, "diss": 13, "nota": 50, "cats": ["Negro"], "sj": false}, {"p": 76, "i": "728016785", "n": "Ednara Kellen De Lima Soares", "nasc": "25/05/1988", "jur": false, "obj": 41, "diss": 8, "nota": 49, "cats": ["Negro"], "sj": false}, {"p": 77, "i": "728020194", "n": "Kevin Borges Costa", "nasc": "14/03/2000", "jur": false, "obj": 36, "diss": 13, "nota": 49, "cats": ["Negro"], "sj": false}, {"p": 78, "i": "728022306", "n": "Winnie Clarice Jovenor Alves Lima", "nasc": "10/04/1992", "jur": false, "obj": 39, "diss": 9, "nota": 48, "cats": ["Negro"], "sj": false}, {"p": 79, "i": "728012022", "n": "Bruno César Andrade Costa", "nasc": "12/04/1987", "jur": false, "obj": 39, "diss": 9, "nota": 48, "cats": ["PcD"], "sj": false}, {"p": 80, "i": "728011960", "n": "Melquisedec Costa Porto", "nasc": "26/12/1980", "jur": false, "obj": 37, "diss": 11, "nota": 48, "cats": ["Negro"], "sj": false}, {"p": 81, "i": "728024884", "n": "Priscila Gonçalves Barreto", "nasc": "23/04/1977", "jur": false, "obj": 36, "diss": 12, "nota": 48, "cats": ["Negro"], "sj": false}, {"p": 82, "i": "728003668", "n": "Yago Fernando Mora Matos", "nasc": "26/11/1996", "jur": false, "obj": 36, "diss": 12, "nota": 48, "cats": ["PcD"], "sj": false}, {"p": 83, "i": "728006689", "n": "Paulo Mateus Souza Da Silva", "nasc": "22/07/1990", "jur": false, "obj": 35, "diss": 12, "nota": 47, "cats": ["Negro"], "sj": false}, {"p": 84, "i": "728001883", "n": "Cibelly Elias Correia", "nasc": "16/09/1979", "jur": false, "obj": 38, "diss": 9, "nota": 47, "cats": ["PcD"], "sj": false}, {"p": 85, "i": "728000054", "n": "Vanessa De Sousa Lopes", "nasc": "05/01/1989", "jur": false, "obj": 36, "diss": 11, "nota": 47, "cats": ["PcD"], "sj": false}, {"p": 86, "i": "728009487", "n": "Warlison Monteiro Mota", "nasc": "13/09/1988", "jur": true, "obj": 38, "diss": 8, "nota": 46, "cats": ["Negro"], "sj": false}, {"p": 87, "i": "728004226", "n": "Alcides Barros Júnior", "nasc": "19/10/1996", "jur": false, "obj": 35, "diss": 11, "nota": 46, "cats": ["Negro"], "sj": false}, {"p": 88, "i": "728006446", "n": "Wesley Moreira De Souza", "nasc": "13/08/1990", "jur": false, "obj": 36, "diss": 10, "nota": 46, "cats": ["Negro"], "sj": false}, {"p": 89, "i": "728010571", "n": "Carlos Rodrigues Melo", "nasc": "21/03/1997", "jur": false, "obj": 32, "diss": 13, "nota": 45, "cats": ["Negro"], "sj": false}, {"p": 90, "i": "728012120", "n": "Evelyn Laiara Da Silva Negreiros Lozano", "nasc": "24/05/1987", "jur": false, "obj": 36, "diss": 8, "nota": 44, "cats": ["Negro"], "sj": false}, {"p": 91, "i": "728014158", "n": "Juliana Kataryne Paiva De Jesus", "nasc": "16/05/1997", "jur": false, "obj": 33, "diss": 11, "nota": 44, "cats": ["Negro"], "sj": false}, {"p": 92, "i": "728021444", "n": "Marcos André Cordeiro Dos Santos", "nasc": "21/07/1978", "jur": false, "obj": 29, "diss": 14, "nota": 43, "cats": ["Negro"], "sj": false}, {"p": 93, "i": "728028151", "n": "Gabriel Luiz Borlot Bassani", "nasc": "18/12/1997", "jur": false, "obj": 34, "diss": 9, "nota": 43, "cats": ["PcD"], "sj": false}, {"p": 94, "i": "728030471", "n": "Paulo Henrique Barros Maropo", "nasc": "21/08/1998", "jur": false, "obj": 32, "diss": 11, "nota": 43, "cats": ["PcD"], "sj": false}, {"p": 95, "i": "728016076", "n": "Junio Cesar De Oliveira Freitas", "nasc": "30/04/1991", "jur": false, "obj": 29, "diss": 13, "nota": 42, "cats": ["Negro"], "sj": false}, {"p": 96, "i": "728025148", "n": "André Matheus De Oliveira Gama", "nasc": "01/08/2003", "jur": false, "obj": 34, "diss": 8, "nota": 42, "cats": ["Negro"], "sj": false}, {"p": 97, "i": "728007376", "n": "Claudio Barbosa Bezerra", "nasc": "09/12/1971", "jur": false, "obj": 29, "diss": 13, "nota": 42, "cats": ["PcD"], "sj": false}, {"p": 98, "i": "728006999", "n": "Samara De Oliveira Coutinho", "nasc": "19/04/1996", "jur": false, "obj": 31, "diss": 11, "nota": 42, "cats": ["Negro"], "sj": false}, {"p": 99, "i": "728027906", "n": "Andréia Cristina De Jesus Ribeiro E Silva", "nasc": "31/08/1986", "jur": false, "obj": 30, "diss": 12, "nota": 42, "cats": ["Negro"], "sj": false}, {"p": 100, "i": "728000658", "n": "Wanderson De Sousa Lima", "nasc": "06/08/1991", "jur": false, "obj": 33, "diss": 8, "nota": 41, "cats": ["PcD"], "sj": false}, {"p": 101, "i": "728025570", "n": "Ernivaldo Oliveira De Azevedo Silva", "nasc": "15/12/1987", "jur": false, "obj": 29, "diss": 12, "nota": 41, "cats": ["Negro"], "sj": false}, {"p": 102, "i": "728002732", "n": "Eumária Teixeira Da Silva", "nasc": "10/02/1993", "jur": false, "obj": 32, "diss": 9, "nota": 41, "cats": ["Negro"], "sj": false}, {"p": 103, "i": "728011923", "n": "Ruhan Endryo De Moraes Ribeiro", "nasc": "19/12/1989", "jur": false, "obj": 29, "diss": 12, "nota": 41, "cats": ["Indigena"], "sj": false}, {"p": 104, "i": "728028574", "n": "Yhury Farnney Do Nascimento Pereira", "nasc": "22/11/2002", "jur": false, "obj": 32, "diss": 8, "nota": 40, "cats": ["Negro"], "sj": false}, {"p": 105, "i": "728015174", "n": "Samara Oliveira Bento", "nasc": "29/08/1975", "jur": false, "obj": 30, "diss": 9, "nota": 39, "cats": ["PcD"], "sj": false}, {"p": 106, "i": "728023920", "n": "Ronilson Horácio Soares", "nasc": "05/04/1988", "jur": false, "obj": 29, "diss": 10, "nota": 39, "cats": ["Negro"], "sj": false}, {"p": 107, "i": "728027013", "n": "Vinicius Brito De Assis Damasceno", "nasc": "18/05/1998", "jur": false, "obj": 30, "diss": 9, "nota": 39, "cats": ["Negro"], "sj": false}, {"p": 108, "i": "728008100", "n": "Suemy Da Cunha Nunes", "nasc": "19/03/1995", "jur": false, "obj": 31, "diss": 8, "nota": 39, "cats": ["Negro"], "sj": false}, {"p": 109, "i": "728009522", "n": "Francisca Aline De Sousa Oliveira", "nasc": "23/04/1995", "jur": false, "obj": 30, "diss": 9, "nota": 39, "cats": ["Negro"], "sj": false}, {"p": 110, "i": "728023556", "n": "Rodolfo Morais Pereira", "nasc": "28/01/1991", "jur": false, "obj": 30, "diss": 8, "nota": 38, "cats": ["Negro"], "sj": false}], "ESTATÍSTICA": [{"p": 1, "i": "728007796", "n": "Bruno Canuto Machado", "nasc": "06/05/1993", "jur": false, "obj": 47, "diss": 12, "nota": 59, "cats": ["Negro"], "sj": false}, {"p": 2, "i": "728000554", "n": "Lucas Roberto De Castro", "nasc": "29/03/1995", "jur": false, "obj": 41, "diss": 15, "nota": 56, "cats": [], "sj": false}, {"p": 3, "i": "728025368", "n": "Adriano Cruz Ferreira", "nasc": "23/10/1974", "jur": false, "obj": 39, "diss": 13, "nota": 52, "cats": ["Negro"], "sj": false}, {"p": 4, "i": "728020748", "n": "João Claudio Da Silva Araujo Lobato", "nasc": "03/06/1999", "jur": false, "obj": 36, "diss": 12, "nota": 48, "cats": [], "sj": false}], "GESTÃO E GOVERNANÇA DE TECNOLOGIA DA INFORMAÇÃO": [{"p": 1, "i": "728000901", "n": "Bruna Flores De Menezes Fernandes", "nasc": "31/05/1990", "jur": false, "obj": 54, "diss": 20, "nota": 74, "cats": [], "sj": false}, {"p": 2, "i": "728002098", "n": "Claudio Isaias Da Silva Júnior", "nasc": "11/09/1998", "jur": false, "obj": 46, "diss": 17, "nota": 63, "cats": [], "sj": false}, {"p": 3, "i": "728017237", "n": "Vitor Ramon Viana Do Carmo", "nasc": "01/08/2001", "jur": false, "obj": 44, "diss": 16, "nota": 60, "cats": [], "sj": false}, {"p": 4, "i": "728016666", "n": "Victor Manuel Mota De Andrade", "nasc": "07/05/2000", "jur": false, "obj": 42, "diss": 17, "nota": 59, "cats": [], "sj": false}, {"p": 5, "i": "728007310", "n": "Amanda Cavalcante Sanguanini", "nasc": "18/03/1991", "jur": false, "obj": 40, "diss": 16, "nota": 56, "cats": [], "sj": false}, {"p": 6, "i": "728008426", "n": "Luis Eduardo Nascimento De Oliveira", "nasc": "21/06/1995", "jur": false, "obj": 38, "diss": 18, "nota": 56, "cats": [], "sj": false}, {"p": 7, "i": "728002131", "n": "Rodrigo Allan Da Silva Menezes", "nasc": "28/11/1987", "jur": false, "obj": 43, "diss": 12, "nota": 55, "cats": ["Negro"], "sj": false}, {"p": 8, "i": "728009227", "n": "Lucas De Jesus Batista", "nasc": "23/06/1997", "jur": false, "obj": 37, "diss": 17, "nota": 54, "cats": [], "sj": false}, {"p": 9, "i": "728011864", "n": "Ana Patricia Neves De Azevedo", "nasc": "11/09/1977", "jur": false, "obj": 37, "diss": 14, "nota": 51, "cats": [], "sj": false}, {"p": 10, "i": "728026763", "n": "André Filipe Oliveira Silva", "nasc": "24/07/1991", "jur": false, "obj": 39, "diss": 12, "nota": 51, "cats": [], "sj": false}, {"p": 11, "i": "728018489", "n": "Érika Patricia Batista Pereira", "nasc": "04/04/1998", "jur": false, "obj": 34, "diss": 17, "nota": 51, "cats": ["Negro"], "sj": false}, {"p": 12, "i": "728019988", "n": "Romero Gomes Da Silva", "nasc": "07/03/1989", "jur": true, "obj": 38, "diss": 12, "nota": 50, "cats": ["Negro"], "sj": false}, {"p": 13, "i": "728013777", "n": "Leyde Dayane Martinho De Andrade", "nasc": "18/02/1984", "jur": false, "obj": 29, "diss": 18, "nota": 47, "cats": ["Negro"], "sj": false}], "INFRAESTRUTURA DE TECNOLOGIA DA INFORMAÇÃO": [{"p": 1, "i": "728001513", "n": "Jose Linhares Do Nascimento Filho", "nasc": "03/12/1993", "jur": false, "obj": 36, "diss": 19, "nota": 55, "cats": [], "sj": false}, {"p": 2, "i": "728020720", "n": "Antonio De Sousa Rodrigues", "nasc": "09/05/1985", "jur": false, "obj": 40, "diss": 14, "nota": 54, "cats": ["PcD"], "sj": false}, {"p": 3, "i": "728024083", "n": "Francisco Maysio Saboia De Melo", "nasc": "27/03/1983", "jur": false, "obj": 38, "diss": 13, "nota": 51, "cats": [], "sj": false}, {"p": 4, "i": "728013023", "n": "Danilo Raimundo Batista Nunes", "nasc": "13/04/1989", "jur": false, "obj": 36, "diss": 13, "nota": 49, "cats": [], "sj": false}, {"p": 5, "i": "728020601", "n": "Jonas Leonel Da Silva", "nasc": "19/01/1992", "jur": false, "obj": 35, "diss": 13, "nota": 48, "cats": [], "sj": false}, {"p": 6, "i": "728020356", "n": "Antonio Bartolomeu Nilfran Mercedes De Aguiar", "nasc": "24/10/1987", "jur": false, "obj": 37, "diss": 9, "nota": 46, "cats": [], "sj": false}, {"p": 7, "i": "728020493", "n": "Luiz Antonio Lima De Araujo", "nasc": "25/08/1990", "jur": false, "obj": 35, "diss": 11, "nota": 46, "cats": [], "sj": false}, {"p": 8, "i": "728005570", "n": "Davi Gabriel Teixeira Dos Santos", "nasc": "07/01/1999", "jur": false, "obj": 31, "diss": 15, "nota": 46, "cats": ["Negro"], "sj": false}, {"p": 9, "i": "728006746", "n": "Ronnei Ericson Rodrigues Correa", "nasc": "02/05/1988", "jur": false, "obj": 34, "diss": 8, "nota": 42, "cats": ["Negro"], "sj": false}], "PSICOLOGIA": [{"p": 1, "i": "728021532", "n": "Ana Beatriz Dias Corrêa", "nasc": "06/11/2000", "jur": false, "obj": 66, "diss": 18, "nota": 84, "cats": [], "sj": false}, {"p": 2, "i": "728000812", "n": "Ana Lídia Da Silva Trindade Mathias", "nasc": "23/09/1995", "jur": false, "obj": 62, "diss": 20, "nota": 82, "cats": ["PcD"], "sj": false}, {"p": 3, "i": "728013991", "n": "Gabriela Da Silva Dias Costa", "nasc": "14/11/2001", "jur": false, "obj": 65, "diss": 16, "nota": 81, "cats": [], "sj": false}, {"p": 4, "i": "728001038", "n": "Fernanda Alves Martins", "nasc": "18/11/2001", "jur": false, "obj": 63, "diss": 17, "nota": 80, "cats": [], "sj": false}, {"p": 5, "i": "728000162", "n": "Isabeau Cristina De Sousa Bezerra", "nasc": "16/11/1991", "jur": false, "obj": 60, "diss": 20, "nota": 80, "cats": ["Negro"], "sj": false}, {"p": 6, "i": "728012254", "n": "Nina Maria Da Silva Viana", "nasc": "16/06/2001", "jur": false, "obj": 58, "diss": 20, "nota": 78, "cats": ["Negro"], "sj": false}, {"p": 7, "i": "728021683", "n": "Kaliano Márcio De Queiroz Costa", "nasc": "31/10/1991", "jur": false, "obj": 57, "diss": 20, "nota": 77, "cats": [], "sj": false}, {"p": 8, "i": "728020993", "n": "Willyana De Sousa Silva", "nasc": "22/03/1988", "jur": false, "obj": 55, "diss": 20, "nota": 75, "cats": [], "sj": false}, {"p": 9, "i": "728013931", "n": "Milena Assunção Procópio Barbosa", "nasc": "18/02/1994", "jur": false, "obj": 57, "diss": 17, "nota": 74, "cats": [], "sj": false}, {"p": 10, "i": "728002086", "n": "Polyana Peixoto Pinheiro", "nasc": "05/08/1982", "jur": false, "obj": 55, "diss": 17, "nota": 72, "cats": [], "sj": false}, {"p": 11, "i": "728029941", "n": "Raysy Karolina Silva Alves De Sousa", "nasc": "25/10/1992", "jur": false, "obj": 51, "diss": 20, "nota": 71, "cats": ["Negro"], "sj": false}, {"p": 12, "i": "728014223", "n": "Arieche Kitiane Silva Lima", "nasc": "13/04/1988", "jur": false, "obj": 56, "diss": 14, "nota": 70, "cats": ["Negro"], "sj": false}, {"p": 13, "i": "728004389", "n": "Railson Felipe Cardoso Moraes", "nasc": "24/02/2001", "jur": false, "obj": 52, "diss": 18, "nota": 70, "cats": ["Negro"], "sj": false}, {"p": 14, "i": "728006736", "n": "Glenda Esther Cardelly Dinelly", "nasc": "06/04/1990", "jur": false, "obj": 52, "diss": 18, "nota": 70, "cats": [], "sj": false}, {"p": 15, "i": "728010433", "n": "Karla Adrienne Pinto Da Silva", "nasc": "22/07/1996", "jur": false, "obj": 54, "diss": 15, "nota": 69, "cats": [], "sj": false}, {"p": 16, "i": "728025462", "n": "Sarah Da Rocha Araujo", "nasc": "14/05/1998", "jur": false, "obj": 50, "diss": 19, "nota": 69, "cats": ["PcD"], "sj": false}, {"p": 17, "i": "728013793", "n": "Laurice Taís Araújo Rêgo", "nasc": "24/04/1992", "jur": false, "obj": 54, "diss": 15, "nota": 69, "cats": [], "sj": false}, {"p": 18, "i": "728021620", "n": "Priscila Magalhães Cavalcante", "nasc": "03/06/1988", "jur": false, "obj": 52, "diss": 17, "nota": 69, "cats": [], "sj": false}, {"p": 19, "i": "728005940", "n": "Ana Karoline Lima Ramos", "nasc": "14/03/1995", "jur": false, "obj": 53, "diss": 16, "nota": 69, "cats": [], "sj": false}, {"p": 20, "i": "728012620", "n": "Italo De Oliveira Guedes", "nasc": "19/08/1992", "jur": false, "obj": 53, "diss": 13, "nota": 66, "cats": [], "sj": false}, {"p": 21, "i": "728009754", "n": "Liezer Hernandez Pino", "nasc": "06/08/1985", "jur": false, "obj": 52, "diss": 11, "nota": 63, "cats": [], "sj": false}, {"p": 22, "i": "728025365", "n": "Claudia Keles Santos Da Silva", "nasc": "24/09/1995", "jur": false, "obj": 47, "diss": 14, "nota": 61, "cats": ["Negro"], "sj": false}, {"p": 23, "i": "728017985", "n": "Liliane Silva De Almeida", "nasc": "24/03/1990", "jur": true, "obj": 45, "diss": 13, "nota": 58, "cats": ["Negro"], "sj": false}, {"p": 24, "i": "728011686", "n": "Francisco Jose De Sousa Filho", "nasc": "13/04/1969", "jur": false, "obj": 41, "diss": 15, "nota": 56, "cats": ["Negro"], "sj": false}, {"p": 25, "i": "728015378", "n": "Jefferson Dos Santos", "nasc": "26/11/1985", "jur": false, "obj": 39, "diss": 17, "nota": 56, "cats": ["Negro"], "sj": false}, {"p": 26, "i": "728024346", "n": "Adria Thaynara Almeida Dos Santos", "nasc": "07/04/1988", "jur": false, "obj": 38, "diss": 15, "nota": 53, "cats": ["Negro"], "sj": false}, {"p": 27, "i": "728024758", "n": "Akel Estevam Dias", "nasc": "31/10/1982", "jur": false, "obj": 36, "diss": 13, "nota": 49, "cats": ["Negro"], "sj": false}, {"p": 28, "i": "728027686", "n": "Laura Manoele Esbell Dos Santos", "nasc": "24/05/2002", "jur": false, "obj": 41, "diss": 8, "nota": 49, "cats": ["Negro"], "sj": false}, {"p": 29, "i": "728005453", "n": "Najara Caroline Muller Reis", "nasc": "09/11/1987", "jur": false, "obj": 35, "diss": 8, "nota": 43, "cats": ["PcD"], "sj": false}, {"p": 30, "i": "728018025", "n": "Carime Lima Dos Santos", "nasc": "18/06/1980", "jur": true, "obj": 34, "diss": 8, "nota": 42, "cats": ["Negro"], "sj": false}], "SERVIÇO SOCIAL": [{"p": 1, "i": "728001318", "n": "Camila Cavalcante Lima", "nasc": "21/07/1994", "jur": false, "obj": 57, "diss": 20, "nota": 77, "cats": [], "sj": false}, {"p": 2, "i": "728007049", "n": "Mariana Damacena De Sá Lima", "nasc": "11/04/1992", "jur": false, "obj": 54, "diss": 19, "nota": 73, "cats": [], "sj": false}, {"p": 3, "i": "728015633", "n": "Camila Mattos Ribeiro", "nasc": "07/01/1995", "jur": false, "obj": 53, "diss": 20, "nota": 73, "cats": [], "sj": false}, {"p": 4, "i": "728014234", "n": "Silvane Ramalho De Sousa Ribeiro", "nasc": "11/08/1986", "jur": false, "obj": 51, "diss": 17, "nota": 68, "cats": [], "sj": false}, {"p": 5, "i": "728000702", "n": "Janieli Da Silva Medeiros Xavier", "nasc": "24/05/1987", "jur": false, "obj": 51, "diss": 16, "nota": 67, "cats": ["PcD"], "sj": false}, {"p": 6, "i": "728002044", "n": "Ethiany Chaves Briglia", "nasc": "06/04/1993", "jur": false, "obj": 47, "diss": 20, "nota": 67, "cats": [], "sj": false}, {"p": 7, "i": "728015593", "n": "Débora Raimunda Ribeiro Costa", "nasc": "20/09/1988", "jur": false, "obj": 46, "diss": 20, "nota": 66, "cats": ["PcD"], "sj": false}, {"p": 8, "i": "728025267", "n": "Vinicius Leandro Da Silva", "nasc": "01/09/1988", "jur": false, "obj": 50, "diss": 16, "nota": 66, "cats": [], "sj": false}, {"p": 9, "i": "728025232", "n": "Livia De Oliveira Lima", "nasc": "30/07/1985", "jur": false, "obj": 47, "diss": 19, "nota": 66, "cats": [], "sj": false}, {"p": 10, "i": "728015867", "n": "Laysa Rayane Schmidt Dos Santos", "nasc": "26/03/1998", "jur": false, "obj": 49, "diss": 17, "nota": 66, "cats": [], "sj": false}, {"p": 11, "i": "728017156", "n": "Carlos Henrique Da Silva Candido", "nasc": "28/02/1992", "jur": false, "obj": 46, "diss": 20, "nota": 66, "cats": [], "sj": false}, {"p": 12, "i": "728011235", "n": "Thaynara Tavares Da Silva Bastos", "nasc": "17/09/1991", "jur": false, "obj": 51, "diss": 13, "nota": 64, "cats": [], "sj": false}, {"p": 13, "i": "728008092", "n": "Josafá Da Silva Almeida", "nasc": "12/08/1990", "jur": false, "obj": 49, "diss": 14, "nota": 63, "cats": ["Negro"], "sj": false}, {"p": 14, "i": "728009048", "n": "Daiany Cavalcante Ribeiro", "nasc": "23/12/1985", "jur": false, "obj": 45, "diss": 18, "nota": 63, "cats": [], "sj": false}, {"p": 15, "i": "728009021", "n": "Ana Maria Mesquita Campelo Freire", "nasc": "17/05/1996", "jur": false, "obj": 46, "diss": 16, "nota": 62, "cats": [], "sj": false}, {"p": 16, "i": "728021252", "n": "Suyanne Gurgel Souza", "nasc": "29/09/1988", "jur": false, "obj": 47, "diss": 13, "nota": 60, "cats": [], "sj": false}, {"p": 17, "i": "728004341", "n": "Gisele Felipe Pinto", "nasc": "02/12/1991", "jur": false, "obj": 42, "diss": 18, "nota": 60, "cats": ["Negro"], "sj": false}, {"p": 18, "i": "728025895", "n": "Elaine Cristina Marques Corrêa Batista", "nasc": "27/09/1976", "jur": false, "obj": 46, "diss": 12, "nota": 58, "cats": [], "sj": false}, {"p": 19, "i": "728014456", "n": "Carolina De Souza Cardozo", "nasc": "25/05/1995", "jur": false, "obj": 43, "diss": 15, "nota": 58, "cats": ["Negro"], "sj": false}, {"p": 20, "i": "728009945", "n": "Silvia Cristina Lima E Silva", "nasc": "25/11/1974", "jur": false, "obj": 46, "diss": 9, "nota": 55, "cats": ["PcD"], "sj": false}, {"p": 21, "i": "728014780", "n": "Amanda Silva Medeiros Belido", "nasc": "12/04/1980", "jur": false, "obj": 45, "diss": 10, "nota": 55, "cats": [], "sj": false}, {"p": 22, "i": "728023352", "n": "Vigna Vitória de Sousa Lourêto Queiroz", "nasc": "23/05/1992", "jur": false, "obj": 41, "diss": 14, "nota": 55, "cats": ["Negro"], "sj": false}, {"p": 23, "i": "728001226", "n": "Walter Araujo Da Silva", "nasc": "16/04/1990", "jur": true, "obj": 38, "diss": 17, "nota": 55, "cats": ["PcD"], "sj": false}, {"p": 24, "i": "728023723", "n": "Talita Dos Santos Lima", "nasc": "12/08/1997", "jur": false, "obj": 37, "diss": 13, "nota": 50, "cats": ["PcD"], "sj": false}, {"p": 25, "i": "728006684", "n": "Iraneide Dos Santos De Oliveira", "nasc": "02/06/1993", "jur": false, "obj": 39, "diss": 11, "nota": 50, "cats": ["PcD"], "sj": false}, {"p": 26, "i": "728009637", "n": "Ivan Dos Santos Barbosa", "nasc": "13/09/1994", "jur": false, "obj": 34, "diss": 15, "nota": 49, "cats": ["Negro"], "sj": false}, {"p": 27, "i": "728007358", "n": "Rosilene Almeida Teixeira", "nasc": "01/12/1978", "jur": false, "obj": 35, "diss": 13, "nota": 48, "cats": ["Negro"], "sj": false}, {"p": 28, "i": "728004114", "n": "Aline Pereira Do Nascimento", "nasc": "03/10/1992", "jur": false, "obj": 34, "diss": 14, "nota": 48, "cats": ["Negro"], "sj": false}, {"p": 29, "i": "728023054", "n": "Aline Ellen Nunes De Carvalho", "nasc": "29/08/1983", "jur": false, "obj": 37, "diss": 8, "nota": 45, "cats": ["PcD"], "sj": false}, {"p": 30, "i": "728014752", "n": "Ozeneide Ribeiro De Sousa", "nasc": "11/06/1981", "jur": false, "obj": 31, "diss": 11, "nota": 42, "cats": ["PcD"], "sj": false}]}
+;
+const SPECIALTIES = Object.keys(DATA_ALL);
+
+// ============================================================
+// VAGAS OFICIAIS POR ESPECIALIDADE (Edital 01/2024, item 3.1)
+// ============================================================
+const TARGETS = {
+  "APOIO À GESTÃO": {AC:6, Negro:2, Indigena:1, PcD:1},
+  "CIBERSEGURANÇA": {AC:1, Negro:1, Indigena:0, PcD:1},
+  "CIÊNCIA DE DADOS E ANALYTICS": {AC:1, Negro:1, Indigena:0, PcD:1},
+  "CONTABILIDADE": {AC:1, Negro:0, Indigena:0, PcD:1},
+  "DESENVOLVIMENTO DE SISTEMAS": {AC:1, Negro:1, Indigena:0, PcD:1},
+  "DIREITO": {AC:3, Negro:1, Indigena:0, PcD:1},
+  "ESTATÍSTICA": {AC:1, Negro:1, Indigena:0, PcD:1},
+  "GESTÃO E GOVERNANÇA DE TECNOLOGIA DA INFORMAÇÃO": {AC:1, Negro:1, Indigena:0, PcD:1},
+  "INFRAESTRUTURA DE TECNOLOGIA DA INFORMAÇÃO": {AC:1, Negro:1, Indigena:0, PcD:1},
+  "PSICOLOGIA": {AC:1, Negro:1, Indigena:0, PcD:1},
+  "SERVIÇO SOCIAL": {AC:1, Negro:0, Indigena:0, PcD:1},
+};
+
+const FINAL_STATUSES = ['nomeado'];
+const VACATING_STATUSES = ['desistente', 'final_fila'];
+function isExcludedSt(st){ return VACATING_STATUSES.includes(st); }
+function isFinalSt(st){ return FINAL_STATUSES.includes(st); }
+
+// ------------------------------------------------------------
+// Categorização canônica: independe de status (nunca muda por
+// causa de desistência de outro candidato). Segue exatamente
+// os itens 8.13/8.14/6.7/9.11 do Edital:
+//   1) Ampla Concorrência é preenchida pelos TOP N (N=targets.AC)
+//      da classificação geral, por mérito puro, INDEPENDENTE de
+//      autodeclaração de cota. Um candidato negro que já entra
+//      pela ampla não consome a vaga reservada (8.14).
+//   2) As vagas reservadas (Indígena > Negro > PcD, da mais
+//      escassa pra mais numerosa) são preenchidas pelos melhores
+//      autodeclarados daquela cota que ainda não tenham vaga.
+//   3) Cota sem candidato suficiente reverte: Indígena -> Negro
+//      -> PcD -> ampla (item 9.10); Negro e PcD revertem direto
+//      pra ampla (itens 8.11 e 6.12).
+// ------------------------------------------------------------
+const canonicalCache = {};
+function computeCanonical(spec){
+  if (canonicalCache[spec]) return canonicalCache[spec];
+  const D = DATA_ALL[spec];
+  const t = TARGETS[spec];
+  const used = new Set();
+  const assignments = {};
+
+  // 1) Ampla concorrência por mérito puro
+  let acCount = 0;
+  for (const c of D){
+    if (acCount >= t.AC) break;
+    assignments[c.i] = {cat:'AC', reverted:false};
+    used.add(c.i);
+    acCount++;
+  }
+
+  // 2) Cotas reservadas, da mais escassa pra mais numerosa
+  function fillReserved(catName, target){
+    let filled = 0;
+    for (const c of D){
+      if (filled >= target) break;
+      if (used.has(c.i)) continue;
+      if (c.cats.includes(catName)){
+        assignments[c.i] = {cat:catName, reverted:false};
+        used.add(c.i);
+        filled++;
+      }
+    }
+    return target - filled;
+  }
+  function revertToAC(qty){
+    let filled = 0;
+    for (const c of D){
+      if (filled >= qty) break;
+      if (used.has(c.i)) continue;
+      assignments[c.i] = {cat:'AC', reverted:true};
+      used.add(c.i);
+      filled++;
+    }
+    return qty - filled;
+  }
+
+  let indigShort = fillReserved('Indigena', t.Indigena);
+  if (indigShort > 0){
+    indigShort = fillReserved('Negro', indigShort); // revertido pra Negro (mantém used ampliado)
+  }
+  // (nota: fillReserved acima usa "target" como novo alvo, mas precisamos
+  // marcar esses extras com reverted+origem; simplificamos: se sobrou,
+  // tenta PcD, depois ampla)
+  if (indigShort > 0){
+    indigShort = fillReserved('PcD', indigShort);
+  }
+  if (indigShort > 0){
+    indigShort = revertToAC(indigShort);
+  }
+
+  let negroShort = fillReserved('Negro', t.Negro);
+  if (negroShort > 0) negroShort = revertToAC(negroShort);
+
+  let pcdShort = fillReserved('PcD', t.PcD);
+  if (pcdShort > 0) pcdShort = revertToAC(pcdShort);
+
+  canonicalCache[spec] = assignments;
+  return assignments;
+}
+
+function seatNumbersOf(spec){
+  const D = DATA_ALL[spec];
+  const canonical = computeCanonical(spec);
+  const winners = D.filter(c => canonical[c.i]).sort((a,b) => a.p - b.p);
+  const seatOf = {};
+  winners.forEach((c, idx) => { seatOf[c.i] = idx + 1; });
+  return seatOf;
+}
+
+// ------------------------------------------------------------
+// simulate(): aplica desistência/final de fila sobre a
+// categorização canônica, repondo a vaga com o próximo
+// autodeclarado disponível da MESMA cota (itens 6.17/8.15/9.9);
+// se a cota se esgotar, reverte conforme 6.12/8.11/9.10.
+// A numeração da vaga (seatNumber) é herdada de quem foi
+// substituído, preservando identidade mesmo em cadeias de
+// substituição.
+// ------------------------------------------------------------
+function simulate(spec, smap){
+  smap = smap || {};
+  const D = DATA_ALL[spec];
+  const canonical = computeCanonical(spec);
+  const seatOf = seatNumbersOf(spec);
+
+  const assignments = {};
+  const beneficiaryOf = {};
+  const filledSeatOf = {};
+  const vacated = {Indigena:[], Negro:[], PcD:[], AC:[]};
+
+  for (const c of D){
+    const can = canonical[c.i];
+    if (!can) continue;
+    if (isExcludedSt(smap[c.i])) vacated[can.cat].push(c);
+    else assignments[c.i] = {cat: can.cat, reverted: can.reverted};
+  }
+
+  const notYetCanonical = D.filter(c => !canonical[c.i] && !isExcludedSt(smap[c.i]));
+  const usedForRefill = new Set();
+
+  function fillFrom(vacList, matchFn, catLabel, reverted){
+    const out = [];
+    for (const vac of vacList){
+      let found = null;
+      for (const c of notYetCanonical){
+        if (usedForRefill.has(c.i)) continue;
+        if (matchFn(c)) { found = c; break; }
+      }
+      if (found){
+        assignments[found.i] = {cat: catLabel, reverted: reverted};
+        usedForRefill.add(found.i);
+        beneficiaryOf[vac.i] = found.i;
+        filledSeatOf[found.i] = vac.i;
+      } else {
+        out.push(vac);
+      }
+    }
+    return out;
+  }
+
+  let rem = vacated.Indigena;
+  rem = fillFrom(rem, c => c.cats.includes('Indigena'), 'Indigena', false);
+  if (rem.length) rem = fillFrom(rem, c => c.cats.includes('Negro'), 'Negro', true);
+  if (rem.length) rem = fillFrom(rem, c => c.cats.includes('PcD'), 'PcD', true);
+  if (rem.length) rem = fillFrom(rem, () => true, 'AC', true);
+
+  rem = vacated.Negro;
+  rem = fillFrom(rem, c => c.cats.includes('Negro'), 'Negro', false);
+  if (rem.length) rem = fillFrom(rem, () => true, 'AC', true);
+
+  rem = vacated.PcD;
+  rem = fillFrom(rem, c => c.cats.includes('PcD'), 'PcD', false);
+  if (rem.length) rem = fillFrom(rem, () => true, 'AC', true);
+
+  rem = vacated.AC;
+  fillFrom(rem, () => true, 'AC', false);
+
+  for (const insc in assignments){
+    let origin = insc;
+    while (filledSeatOf[origin]) origin = filledSeatOf[origin];
+    assignments[insc].vaga = seatOf[origin];
+  }
+
+  return {assignments, beneficiaryOf, targets: TARGETS[spec]};
+}
+
+
+const CATEGORIAS = [
+  { id: 'ac', label: 'Ampla Concorrência', match: c => c.length === 0 },
+  { id: 'negro', label: 'Negro', match: c => c.includes('Negro') },
+  { id: 'pcd', label: 'PcD', match: c => c.includes('PcD') },
+  { id: 'indigena', label: 'Indígena', match: c => c.includes('Indigena') },
+];
+const STATUS_LABELS = {
+  '': '— sem status —',
+  'convocado': 'Convocado',
+  'nomeado': 'Nomeado',
+  'desistente': 'Desistente',
+  'final_fila': 'Final de fila'
+};
+const STATUS_MOTIVO = { 'desistente': 'desistiu da nomeação', 'final_fila': 'foi para o final da fila' };
+
+function catClassOf(cats){
+  if(cats.includes('Negro')) return 'negro';
+  if(cats.includes('PcD')) return 'pcd';
+  if(cats.includes('Indigena')) return 'indigena';
+  return 'ac';
+}
+function catLabel(cats){
+  if(!cats.length) return '<span class="catpill AC">Ampla Concorrência</span>';
+  return cats.map(c => {
+    const lbl = c === 'Indigena' ? 'Indígena' : c;
+    return '<span class="catpill '+c+'">'+lbl+'</span>';
+  }).join(' ');
+}
+function normaliza(s){
+  return (s||'').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
+}
+
+let activeSpec = SPECIALTIES[0];
+let activeCat = 'ac';
+const statuses = {};
+const STORAGE_KEY = 'tjrr_analista_ordem_nomeacao_status_v3';
+
+const specTabsEl = document.getElementById('specTabs');
+const specTitleEl = document.getElementById('specTitle');
+const quotaGridEl = document.getElementById('quotaGrid');
+const catTabsEl = document.getElementById('catTabs');
+const nextUpGrid = document.getElementById('nextUpGrid');
+const tbody = document.getElementById('tbody');
+const emptyState = document.getElementById('emptyState');
+const searchBox = document.getElementById('searchBox');
+const summaryBox = document.getElementById('summaryBox');
+const onlyProvidas = document.getElementById('onlyProvidas');
+
+// ---------- Firebase ----------
+const firebaseConfig = {
+  apiKey: "AIzaSyBoTh13bEDx43tmdQOBLFddTq-fHkJlHcs",
+  authDomain: "ordem-de-nomeacao-tjrr-analist.firebaseapp.com",
+  projectId: "ordem-de-nomeacao-tjrr-analist",
+  storageBucket: "ordem-de-nomeacao-tjrr-analist.firebasestorage.app",
+  messagingSenderId: "392869743890",
+  appId: "1:392869743890:web:3d184b04b93834e3e4f7cb"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const auth = firebase.auth();
+const docRef = db.collection('tjrr_analista_ordem_nomeacao').doc('status_v3');
+const OWNER_UID = "kgSNPDVkanWuWVNfiLYFzdJwNFs2";
+let isOwnerGlobal = false;
+
+const editFields = document.getElementById('editFields');
+const lockedNote = document.getElementById('lockedNote');
+const authLoggedOut = document.getElementById('authLoggedOut');
+const authLoggedIn = document.getElementById('authLoggedIn');
+const authUserLabel = document.getElementById('authUserLabel');
+const authMsg = document.getElementById('authMsg');
+
+auth.onAuthStateChanged(user => {
+  isOwnerGlobal = !!user && user.uid === OWNER_UID;
+  editFields.disabled = !isOwnerGlobal;
+  lockedNote.style.display = isOwnerGlobal ? 'none' : 'block';
+  authLoggedOut.style.display = user ? 'none' : 'flex';
+  authLoggedIn.style.display = user ? 'flex' : 'none';
+  if (user) authUserLabel.textContent = isOwnerGlobal ? ('Logado como ' + user.email) : (user.email + ' (sem permissão de edição)');
+  renderAll();
+});
+document.getElementById('btnLogin').addEventListener('click', () => {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass = document.getElementById('loginPass').value;
+  authMsg.textContent = 'Entrando…';
+  auth.signInWithEmailAndPassword(email, pass)
+    .then(() => { authMsg.textContent = ''; })
+    .catch(err => { authMsg.textContent = 'E-mail ou senha inválidos.'; console.warn(err); });
+});
+document.getElementById('btnLogout').addEventListener('click', () => { auth.signOut(); });
+
+function setSyncStatus(texto, cor){
+  const el = document.getElementById('syncStatus');
+  if(el){ el.textContent = texto; el.style.color = cor || 'var(--ink-soft)'; }
+}
+function carregarDoStorageLocal(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return;
+    const obj = JSON.parse(raw);
+    Object.keys(obj.statuses || {}).forEach(k => { statuses[k] = obj.statuses[k] || {}; });
+  }catch(e){}
+}
+function salvarLocalCache(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify({statuses})); }catch(e){}
+}
+function aplicarSnapshot(snap){
+  if(snap && snap.exists){
+    const obj = snap.data() || {};
+    Object.keys(statuses).forEach(k => delete statuses[k]);
+    Object.keys(obj.statuses || {}).forEach(k => { statuses[k] = obj.statuses[k] || {}; });
+    salvarLocalCache();
+  }
+}
+function salvarNoFirestore(){
+  setSyncStatus('Salvando…', 'var(--ink-soft)');
+  docRef.set({statuses})
+    .then(() => setSyncStatus('✓ Sincronizado', 'var(--ok)'))
+    .catch(err => { console.warn(err); setSyncStatus('⚠ Sem conexão — salvo só localmente', '#B23A2E'); });
+  salvarLocalCache();
+}
+carregarDoStorageLocal();
+setSyncStatus('Conectando…', 'var(--ink-soft)');
+docRef.onSnapshot(snap => {
+  aplicarSnapshot(snap);
+  setSyncStatus('✓ Sincronizado', 'var(--ok)');
+  renderAll();
+}, err => { console.warn(err); setSyncStatus('⚠ Sem conexão — usando cópia local', '#B23A2E'); });
+
+// ---------- Render ----------
+function renderSpecTabs(){
+  specTabsEl.innerHTML = '';
+  SPECIALTIES.forEach(name => {
+    const rows = DATA_ALL[name];
+    const t = TARGETS[name];
+    const totalVagas = t.AC + t.Negro + t.PcD + t.Indigena;
+    const btn = document.createElement('button');
+    btn.className = 'spec-tab' + (name === activeSpec ? ' active' : '');
+    const shortName = name.length > 28 ? name.slice(0,26)+'…' : name;
+    btn.title = name;
+    btn.innerHTML = shortName + ' <span class="cnt">(' + totalVagas + ' vagas · ' + rows.length + ' aprov.)</span>';
+    btn.addEventListener('click', () => {
+      activeSpec = name;
+      activeCat = 'ac';
+      searchBox.value = '';
+      renderAll();
+    });
+    specTabsEl.appendChild(btn);
+  });
+}
+function renderQuotaPanel(result){
+  const rows = DATA_ALL[activeSpec];
+  const t = TARGETS[activeSpec];
+  const totalVagas = t.AC + t.Negro + t.PcD + t.Indigena;
+  specTitleEl.textContent = activeSpec + ' — ' + totalVagas + ' vagas · ' + rows.length + ' aprovados';
+  const filled = {AC:0, Negro:0, Indigena:0, PcD:0};
+  for (const insc in result.assignments) filled[result.assignments[insc].cat]++;
+  quotaGridEl.innerHTML =
+    '<div>Ampla concorrência <b>' + filled.AC + ' / ' + t.AC + '</b></div>' +
+    '<div>Negro <b>' + filled.Negro + ' / ' + t.Negro + '</b></div>' +
+    '<div>PcD <b>' + filled.PcD + ' / ' + t.PcD + '</b></div>' +
+    '<div>Indígena <b>' + filled.Indigena + ' / ' + t.Indigena + '</b></div>';
+}
+function renderCatTabs(){
+  const rows = DATA_ALL[activeSpec];
+  const existing = catTabsEl.querySelector('.checkbox-inline');
+  catTabsEl.innerHTML = '';
+  CATEGORIAS.forEach(cat => {
+    const count = rows.filter(r => cat.match(r.cats)).length;
+    const btn = document.createElement('button');
+    btn.className = 'cat-tab' + (cat.id === activeCat ? ' active ' + cat.id : '');
+    btn.innerHTML = cat.label + ' <span class="cnt">(' + count + ')</span>';
+    btn.addEventListener('click', () => { activeCat = cat.id; renderCatTabs(); renderTable(); });
+    catTabsEl.appendChild(btn);
+  });
+  if(existing) catTabsEl.appendChild(existing);
+}
+function inscToName(spec, insc){
+  const c = DATA_ALL[spec].find(x => x.i === insc);
+  return c ? c.n : insc;
+}
+function renderNextUp(){
+  const result = simulate(activeSpec, statuses[activeSpec] || {});
+  const byCat = {AC:[], Negro:[], PcD:[], Indigena:[]};
+  for (const c of DATA_ALL[activeSpec]){
+    const a = result.assignments[c.i];
+    const st = (statuses[activeSpec] || {})[c.i] || '';
+    if (a && !isFinalSt(st)) byCat[a.cat].push({vaga: a.vaga, nome: c.n, nota: c.nota});
+  }
+  const cols = [
+    {key:'AC', label:'Ampla Concorrência'},
+    {key:'Negro', label:'Negro'},
+    {key:'PcD', label:'PcD'},
+    {key:'Indigena', label:'Indígena'},
+  ];
+  nextUpGrid.innerHTML = '';
+  cols.forEach(col => {
+    const list = byCat[col.key].slice().sort((a,b) => a.vaga - b.vaga);
+    const card = document.createElement('div');
+    if(list.length){
+      const p = list[0];
+      card.className = 'next-up-card ' + col.key;
+      card.innerHTML = '<div class="catlabel">' + col.label + '</div><div class="candname">' + p.nome + '</div><div class="posinfo">' + p.vaga + 'ª vaga desta cota · nota ' + p.nota + '</div>';
+    } else {
+      card.className = 'next-up-card empty ' + col.key;
+      card.textContent = TARGETS[activeSpec][col.key] === 0 ? 'Sem vaga reservada nesta cota' : 'Sem candidatos disponíveis';
+    }
+    nextUpGrid.appendChild(card);
+  });
+}
+function updateSummary(result){
+  const rows = DATA_ALL[activeSpec] || [];
+  const st = statuses[activeSpec] || {};
+  const counts = {convocado:0, nomeado:0, desistente:0, final_fila:0};
+  rows.forEach(r => { const s = st[r.i]; if(s && counts.hasOwnProperty(s)) counts[s]++; });
+  const totalVagas = Object.values(result.targets).reduce((a,b)=>a+b,0);
+  summaryBox.innerHTML =
+    '<b>' + Object.keys(result.assignments).length + '</b> de <b>' + totalVagas + '</b> vaga(s) providas nesta simulação.<br>' +
+    '<span class="status-pill" style="background:#E7EEF6;color:var(--convocado);">Convocados: ' + counts.convocado + '</span>' +
+    '<span class="status-pill" style="background:#E3F0EA;color:var(--nomeado);">Nomeados: ' + counts.nomeado + '</span>' +
+    '<span class="status-pill" style="background:#FBE9E7;color:var(--desistente);">Desistentes: ' + counts.desistente + '</span>' +
+    '<span class="status-pill" style="background:#FFF3D6;color:var(--finalfila);">Final de fila: ' + counts.final_fila + '</span>';
+}
+function renderTable(){
+  const result = simulate(activeSpec, statuses[activeSpec] || {});
+  renderQuotaPanel(result);
+  updateSummary(result);
+
+  const catDef = CATEGORIAS.find(c => c.id === activeCat) || CATEGORIAS[0];
+  const allRows = DATA_ALL[activeSpec].filter(r => catDef.match(r.cats));
+  const st = statuses[activeSpec] || {};
+  tbody.innerHTML = '';
+
+  if(allRows.length === 0){ emptyState.style.display = 'block'; return; }
+  emptyState.style.display = 'none';
+
+  allRows.forEach(r => {
+    const s = st[r.i] || '';
+    const excluded = isExcludedSt(s);
+    const assign = result.assignments[r.i];
+
+    const tr = document.createElement('tr');
+    let rowClass = 'cr';
+    if (!excluded && assign) rowClass = assign.cat === 'AC' ? 'ac' : (assign.cat==='Negro'?'negro':(assign.cat==='PcD'?'pcd':'indigena'));
+    if (r.sj) rowClass += ' subjudice';
+    if (assign && assign.reverted) rowClass += ' reverted';
+    tr.className = rowClass;
+    tr.dataset.nome = normaliza(r.n);
+    tr.dataset.insc = r.i;
+    tr.dataset.hasvaga = (assign && !excluded) ? '1' : '0';
+
+    const tdNota = document.createElement('td'); tdNota.textContent = r.nota;
+
+    const tdVaga = document.createElement('td');
+    let vagaCell = '<span class="catpill CR">CR</span>';
+    let noteHtml = '';
+    if (excluded){
+      vagaCell = '<span class="catpill CR">—</span>';
+      const benef = result.beneficiaryOf[r.i];
+      noteHtml = benef
+        ? '<div class="reassign-note from">' + (STATUS_MOTIVO[s]||'vacância') + ': vaga repassada a ' + inscToName(activeSpec, benef) + '</div>'
+        : '<div class="reassign-note warn">sem novo beneficiário disponível</div>';
+    } else if (assign){
+      const lbl = assign.cat === 'Indigena' ? 'Indígena' : assign.cat;
+      vagaCell = '<span class="ordernum">' + assign.vaga + 'ª</span> <span class="catpill ' + assign.cat + '">' + lbl + '</span>';
+      if (assign.reverted) noteHtml = '<div class="reassign-note warn">cota sem candidatos suficientes; revertida à ampla</div>';
+      const origInsc = Object.keys(result.beneficiaryOf).find(k => result.beneficiaryOf[k] === r.i);
+      if (origInsc){
+        const stOrig = (statuses[activeSpec]||{})[origInsc];
+        noteHtml += '<div class="reassign-note to">assumiu a vaga de ' + inscToName(activeSpec, origInsc) + ', que ' + (STATUS_MOTIVO[stOrig]||'liberou a vaga') + '</div>';
+      }
+    } else {
+      noteHtml = '';
+    }
+    tdVaga.innerHTML = vagaCell + noteHtml;
+
+    const tdNome = document.createElement('td'); tdNome.className = 'namecell';
+    tdNome.textContent = r.n;
+    if(r.sj){ const tag=document.createElement('span'); tag.className='sjtag'; tag.textContent='sub judice'; tdNome.appendChild(tag); }
+    if(r.jur){ const tag=document.createElement('span'); tag.className='jurtag'; tag.textContent='jurado'; tdNome.appendChild(tag); }
+    const posSpan = document.createElement('div'); posSpan.style.cssText='font-size:10.5px;color:var(--ink-soft);margin-top:2px;';
+    posSpan.textContent = r.p + 'º colocado por nota · insc. ' + r.i;
+    tdNome.appendChild(posSpan);
+
+    const tdNasc = document.createElement('td'); tdNasc.textContent = r.nasc;
+    const tdCota = document.createElement('td'); tdCota.innerHTML = catLabel(r.cats);
+
+    const tdSt = document.createElement('td');
+    const sel = document.createElement('select');
+    sel.className = 'statusSelect';
+    if (s) sel.classList.add('st-' + s);
+    Object.keys(STATUS_LABELS).forEach(val => {
+      const opt = document.createElement('option');
+      opt.value = val; opt.textContent = STATUS_LABELS[val];
+      if (val === s) opt.selected = true;
+      sel.appendChild(opt);
+    });
+    sel.disabled = !isOwnerGlobal;
+    sel.addEventListener('change', () => {
+      if(!statuses[activeSpec]) statuses[activeSpec] = {};
+      if(sel.value === '') delete statuses[activeSpec][r.i];
+      else statuses[activeSpec][r.i] = sel.value;
+      salvarNoFirestore();
+      renderTable();
+      renderNextUp();
+    });
+    tdSt.appendChild(sel);
+
+    tr.appendChild(tdNota); tr.appendChild(tdVaga); tr.appendChild(tdNome); tr.appendChild(tdNasc); tr.appendChild(tdCota); tr.appendChild(tdSt);
+    tbody.appendChild(tr);
+  });
+  applyFilter();
+}
+function applyFilter(){
+  const q = normaliza(searchBox.value);
+  const only = onlyProvidas.checked;
+  Array.from(tbody.children).forEach(tr => {
+    let show = !q || tr.dataset.nome.includes(q) || tr.dataset.insc.includes(q);
+    if (only && tr.dataset.hasvaga !== '1') show = false;
+    tr.classList.toggle('hidden', !show);
+  });
+}
+searchBox.addEventListener('input', applyFilter);
+onlyProvidas.addEventListener('change', applyFilter);
+
+function renderAll(){
+  renderSpecTabs();
+  renderCatTabs();
+  renderNextUp();
+  renderTable();
+}
+renderAll();
+</script>
+</body>
+</html>
